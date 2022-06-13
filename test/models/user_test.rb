@@ -28,4 +28,9 @@ class UserTest < ActiveSupport::TestCase
     @user.email = ""
     assert_not @user.valid?
   end
+
+  test "should be valid" do 
+    @user.email = "example@gmail"
+    assert_not @user.valid?
+  end
 end
