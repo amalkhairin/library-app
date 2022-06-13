@@ -3,6 +3,7 @@ require "test_helper"
 class UserTest < ActiveSupport::TestCase
   setup do 
     @user = User.new(name: "Gifar", email: "halo@example.com", username: "gifaraja")
+    @user2 = User.new(name: "fulan", email: "halo1@example.com", username: "gifaraja1")
   end
 
   test "User should be valid" do
@@ -36,12 +37,18 @@ class UserTest < ActiveSupport::TestCase
 
   test "email should be uniq" do 
     @user.save
-    @user2 = User.new(name: "Fulan", email: "halo@example.com")
+    @user2.email = "halo@example.com"
     assert_not @user2.valid?
   end
 
   test "username should be present" do 
     @user.username = ""
     assert_not @user.valid?
+  end
+
+  test "username should be uniq" do 
+    @user.save
+    @user2.username = "gifaraja"
+    assert_not @user2.valid?
   end
 end
