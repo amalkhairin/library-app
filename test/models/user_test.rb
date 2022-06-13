@@ -18,4 +18,9 @@ class UserTest < ActiveSupport::TestCase
     @user.name = "a" * 256
     assert_not @user.valid?
   end
+
+  test "name should be a letter" do 
+    @user.name = "3abj"
+    assert_not @user.valid?
+  end
 end
