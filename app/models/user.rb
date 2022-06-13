@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  NAME_FORMAT = /\A[a-zA-Z]+\z/
+  NAME_FORMAT = /\A(?:[-a-z']+|[-a-z']+\s[-a-z']*\s?[-a-z']+)\z/i 
   validates :name, presence: true, length: {maximum: 255}, format: {with: NAME_FORMAT} 
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -7,5 +7,6 @@ class User < ApplicationRecord
 
   validates :username, presence: true, length: {maximum: 20, minimum: 3}, uniqueness: true
 
-  validates :telephone, presence: true
+  PHONE_FORMAT = /\A\d+\Z/
+  validates :telephone, presence: true, format: {with: PHONE_FORMAT}
 end

@@ -2,7 +2,7 @@ require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   setup do 
-    @user = User.new(name: "Gifar", email: "halo@example.com", username: "gifaraja", telephone: "0812345678910")
+    @user = User.new(name: "Gifar Aja", email: "halo@example.com", username: "gifaraja", telephone: "0812345678910")
     @user2 = User.new(name: "fulan", email: "halo1@example.com", username: "gifaraja1", telephone: "0812345678911")
   end
 
@@ -74,6 +74,11 @@ class UserTest < ActiveSupport::TestCase
 
   test "telphone number should be present" do 
     @user.telephone = ""
+    assert_not @user.valid?
+  end
+
+  test "telephone should be string number" do 
+    @user.telephone = "891827984e71"
     assert_not @user.valid?
   end
   
