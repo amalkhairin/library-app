@@ -2,13 +2,15 @@ require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   setup do 
-    @user = User.new(name: "Gifar", email: "halo@example.com", username: "gifaraja")
-    @user2 = User.new(name: "fulan", email: "halo1@example.com", username: "gifaraja1")
+    @user = User.new(name: "Gifar", email: "halo@example.com", username: "gifaraja", telephone: "0812345678910")
+    @user2 = User.new(name: "fulan", email: "halo1@example.com", username: "gifaraja1", telephone: "0812345678911")
   end
 
   test "User should be valid" do
     assert @user.valid?
   end
+
+  # validation test for name
 
   test "name should be present" do 
     @user.name = ""
@@ -25,6 +27,8 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
+  # validation test for email
+
   test "email should be present" do 
     @user.email = ""
     assert_not @user.valid?
@@ -40,6 +44,8 @@ class UserTest < ActiveSupport::TestCase
     @user2.email = "halo@example.com"
     assert_not @user2.valid?
   end
+
+  # validation test for username
 
   test "username should be present" do 
     @user.username = ""
@@ -61,4 +67,14 @@ class UserTest < ActiveSupport::TestCase
     @user.username = "aa" 
     assert_not @user.valid?
   end
+
+  # validation test for password
+
+  # validation test for telephone number
+
+  test "telphone number should be present" do 
+    @user.telephone = ""
+    assert_not @user.valid?
+  end
+  
 end
