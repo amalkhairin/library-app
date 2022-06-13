@@ -75,6 +75,11 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
+  test "password should not be too short" do 
+    @user.password_digest = "abc"
+    assert_not @user.valid? 
+  end
+
   # validation test for telephone number
 
   test "telphone number should be present" do 

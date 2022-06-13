@@ -10,6 +10,6 @@ class User < ApplicationRecord
   PHONE_FORMAT = /\A\d+\Z/
   validates :telephone, presence: true, format: {with: PHONE_FORMAT}
 
-  validates :password, presence: true
+  validates :password, presence: true, length: {minimum: 5}
   has_secure_password
 end
