@@ -10,13 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_13_145912) do
-  create_table "email_verified_ats", force: :cascade do |t|
-    t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
+ActiveRecord::Schema[7.0].define(version: 2022_06_14_074112) do
   create_table "roles", force: :cascade do |t|
     t.string "role"
     t.datetime "created_at", null: false
@@ -37,6 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_145912) do
     t.boolean "is_active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "confirmed_at"
   end
 
 end

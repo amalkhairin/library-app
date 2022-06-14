@@ -1,4 +1,4 @@
 class Role < ApplicationRecord
-  enum :role, {admin: 0, visitor: 1}
-  validates :role, presence: true
+  has_many :users
+  validates :role, presence: true, inclusion: {in: %w(admin visitor )}
 end

@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_one :email_verified_at
+  belongs_to :role
   NAME_FORMAT = /\A(?:[-a-z']+|[-a-z']+\s[-a-z']*\s?[-a-z']+)\z/i 
   validates :name, presence: true, length: {maximum: 255}, format: {with: NAME_FORMAT} 
 

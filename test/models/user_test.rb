@@ -2,7 +2,9 @@ require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   setup do 
+    @role = Role.create(role: "admin")
     @user = User.new(name: "Gifar Aja", email: "halo@example.com", username: "gifaraja", telephone: "0812345678910", password: "admin1")
+    @user.role = @role
     @user2 = User.new(name: "fulan", email: "halo1@example.com", username: "gifaraja1", telephone: "0812345678911", password: "admin2")
   end
 
