@@ -10,10 +10,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test "should get show" do
-  #   get users_path(user["id"])
-  #   assert_response :success
-  # end
+  test "should show @user" do
+    get users_path(@user), as: :json  
+    assert_response :success
+  end
 
   # test "should get update" do
   #   get users_update(@users)
