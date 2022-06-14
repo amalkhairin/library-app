@@ -3,8 +3,7 @@ require "test_helper"
 class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @role = Role.create(role: "admin")
-    @user = User.new(name: "Gifar Aja", email: "halo@example.com", username: "gifaraja", telephone: "0812345678910", password: "admin1")
-    @user.role = @role
+    @user = User.create(name: "Gifar Aja", email: "halo@example.com", username: "gifaraja", telephone: "0812345678910", password: "admin1", role_id: 1)
   end
 
   test "should render all user" do
@@ -13,20 +12,21 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show @user" do
-    get users_path(@user), as: :json  
+    get user_path(@user), as: :json 
     assert_response :success
   end
 
   test "should update user" do
-    @user.save
-    patch user_path(@user), params: { user: { name: "Dadang", email: "halo@example.com", username: "gifaraja", telephone: "0812345678910", password: "admin1" }}, as: :json
+    patch user_path(@user), params: { user: { name: "Dadang", email: "halo@example.com", username: "gifaraja", telephone: "0812345678910", password: "admin1" } }, as: :json
     assert_response :success
   end
 
-  # test "should get create" do
-  #   get users_create_url
-  #   assert_response :success
-  # end
+  test "should create new user" do
+    assert_difference("User.count", 1) do 
+      post users_path, params: { user: { name: "Gifar Siapa", email: "halo1@example.com", username: "gifaraja2", telephone: "0812345672910", password: "admin1", role_id: 1 } }, as: :json 
+    end
+    assert_response :success
+  end
 
   # test "should get destroy" do
   #   get users_destroy_url
