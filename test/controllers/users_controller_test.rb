@@ -28,8 +28,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test "should get destroy" do
-  #   get users_destroy_url
-  #   assert_response :success
-  # end
+  test "should delete user" do
+    assert_difference("User.count", -1) do 
+      delete user_path(@user), as: :json
+    end
+    assert_response :no_content
+  end
 end
