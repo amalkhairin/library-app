@@ -1,11 +1,14 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show update destroy ]
+  before_action :set_user, only: %i[ show update destroy create edit ]
 
   def index
     @users = User.all
 
     render json: @users
   end
+
+  def edit
+  end  
 
   def show
     render json: @user
@@ -15,11 +18,8 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       render json: @user
     else
-      render json: @user.errors, status: :nprocessable_entity
+      render json: @user.errors, status: :unprocessable_entity
     end
-  end
-
-  def new
   end
 
   def create
