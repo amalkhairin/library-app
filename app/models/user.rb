@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   belongs_to :role
+  has_many :peminjaman_bukus, dependent: :destroy
   NAME_FORMAT = /\A(?:[-a-z']+|[-a-z']+\s[-a-z']*\s?[-a-z']+)\z/i 
   validates :name, presence: true, length: {maximum: 255}, format: {with: NAME_FORMAT} 
 

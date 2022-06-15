@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id_user: 1
+  id_buku: 1
+  jadwal_pinjam: 2022-06-15 12:55:11
+  jadwal_kembali: 2022-06-15 12:55:11
+  status: MyString
+
+two:
+  id_user: 1
+  id_buku: 1
+  jadwal_pinjam: 2022-06-15 12:55:11
+  jadwal_kembali: 2022-06-15 12:55:11
+  status: MyString
