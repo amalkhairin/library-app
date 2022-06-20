@@ -1,0 +1,2 @@
+class Buku < ApplicationRecord
+end
