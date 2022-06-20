@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_request, only: %i[ create ]
+  skip_before_action :authenticate_request, only: %i[ create index ]
   before_action :set_user, only: %i[ show update destroy ]
-  before_action :require_same_user_or_admin, only: %i[ destroy ]
+  before_action :require_same_user_or_admin, only: %i[ destroy update ]
 
   def index
     @users = User.all
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    render json: {error: "only admin can delete account"}
+    render json: {success: "deleted successfully"}
   end
 
   private 
@@ -46,8 +46,8 @@ class UsersController < ApplicationController
   end
 
   def require_same_user_or_admin
-    if @current_user.role.role != "admin" || @current_user.id != @user.id
-      render json: {error: "you can't delete other user"}
+    if @current_user.role.role != "admin" && @current_user.id != @user.id
+      render json: {error: "you can't delete or edit  other user"}
     end
   end
 
