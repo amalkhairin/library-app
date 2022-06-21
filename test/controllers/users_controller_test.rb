@@ -18,17 +18,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test "should update user" do
-  #   patch user_path(@user), params: { user: { name: "Dadang", email: "halo@example.com", username: "gifaraja", telephone: "0812345678910", password: "admin1" } }, as: :json
-  #   assert_response :success
-  # end
-
-  # test "should create new user" do
-  #   assert_difference("User.count", 1) do 
-  #     post users_path, params: { user: { name: "Gifar Siapa", email: "halo1@example.com", username: "gifaraja2", telephone: "0812345672910", password: "admin1", role_id: 1 } }, as: :json 
-  #   end
-  #   assert_response :success
-  # end
+  test "should create new user" do
+    assert_difference("User.count", 1) do 
+      post users_path, params: { user: { name: "Gifar Siapa", email: "halo1@example.com", username: "gifaraja2", telephone: "0812345672910", password: "admin1", role_id: 1 } }, as: :json 
+    end
+    assert_response :success
+  end
 
   # test "should delete user" do
   #   assert_difference("User.count", -1) do 
