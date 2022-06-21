@@ -33,4 +33,16 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :success
   end
+
+  test "should not delete user if not admin" do
+    @role2 = Role.create(role: "visitor")
+    @user2 = User.create(name: "Gifa", email: "halo2@example.com", username: "gifaraja2", telephone: "0812345678210", password: "admin1", role_id: 2)
+
+    auth_token = sign_in_as(@user2)
+
+    assert_no_difference("User.count", -1) do 
+      delete user_path(@user), params: {}, headers: { HTTP_AUTHORIZATION: "JWT #{auth_token}" }
+    end
+    assert_response :success
+  end
 end
