@@ -12,10 +12,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test "should show user" do
-  #   get user_path(@user), as: :json 
-  #   assert_response :success
-  # end
+  test "should show user with auth" do
+    auth_token = sign_in_as(@user)
+    get user_path(@user), params: {}, headers: { HTTP_AUTHORIZATION: "JWT #{auth_token}" }
+    assert_response :success
+  end
 
   # test "should update user" do
   #   patch user_path(@user), params: { user: { name: "Dadang", email: "halo@example.com", username: "gifaraja", telephone: "0812345678910", password: "admin1" } }, as: :json
