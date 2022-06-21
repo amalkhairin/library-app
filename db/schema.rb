@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema[7.0].define(version: 2022_06_20_101840) do
   create_table "bukus", force: :cascade do |t|
     t.integer "id_kategori"
@@ -33,10 +32,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_101840) do
     t.datetime "updated_at", null: false
   end
 
-=======
-ActiveRecord::Schema[7.0].define(version: 2022_06_19_095636) do
->>>>>>> 328fd05e8e89bb6b84e651c22bfb36a1a0624378
   create_table "peminjaman_bukus", force: :cascade do |t|
+    t.integer "id_user"
     t.integer "id_buku"
     t.datetime "jadwal_pinjam"
     t.datetime "jadwal_kembali"
