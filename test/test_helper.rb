@@ -10,4 +10,10 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  include JsonWebToken
+
+  def sign_in_as(user)
+    check = post login_path, params: {  email: user.email, password: "admin1" }
+    jwt_encode(user_id: @user.id) if check == 200
+  end
 end
