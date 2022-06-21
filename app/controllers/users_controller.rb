@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_request, only: %i[ create index ]
+  skip_before_action :authenticate_request, only: %i[ create ]
   before_action :set_user, only: %i[ show update destroy ]
   before_action :require_same_user_or_admin, only: %i[ destroy update ]
 
@@ -42,7 +42,8 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :username, :password, :telephone, :role_id, :birthday, :address, :gender, :is_active)
+    defaults = { role_id: '2' }
+    params.require(:user).permit(:name, :email, :username, :password, :telephone, :role_id, :birthday, :address, :gender, :is_active).reverse_merge(defaults)
   end
 
   def require_same_user_or_admin
