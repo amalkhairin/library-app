@@ -10,8 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_19_095636) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_20_101840) do
+  create_table "bukus", force: :cascade do |t|
+    t.integer "id_kategori"
+    t.string "barcode"
+    t.string "isbn"
+    t.string "judul"
+    t.string "deskripsi"
+    t.string "penulis"
+    t.string "penerbit"
+    t.string "gambar_buku"
+    t.string "file_buku"
+    t.string "bahasa"
+    t.string "edisi"
+    t.integer "tahun_terbit"
+    t.string "subject"
+    t.string "lokasi"
+    t.integer "jumlah_buku"
+    t.integer "isAvailable"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "peminjaman_bukus", force: :cascade do |t|
+    t.integer "id_user"
     t.integer "id_buku"
     t.datetime "jadwal_pinjam"
     t.datetime "jadwal_kembali"
