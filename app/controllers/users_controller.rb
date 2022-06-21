@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      @user.profile = set_profile(@user.email)
       render json: @user, statu: :ok
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -39,6 +40,12 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def set_profile(user_email)
+    email_address = params[:user][:email]
+    hash = Digest::MD5.hexdigest(email_address)
+    "https://www.gravatar.com/avatar/#{hash}"
   end
 
   def user_params
