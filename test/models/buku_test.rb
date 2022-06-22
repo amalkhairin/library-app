@@ -23,4 +23,9 @@ class BukuTest < ActiveSupport::TestCase
     @book1.judul = ""
     assert_not @book1.valid?
   end
+
+  test "penulis should be present" do
+    @book1.penulis = ''
+    assert_not @book1.valid?
+  end
 end

@@ -6,8 +6,7 @@ class Buku < ApplicationRecord
   validates :barcode, presence: true
   validates :isbn, presence: true
   validates :judul, presence: true
-  # validates :deskripsi, presence: true
-  # validates :penulis, presence: true
+  validates :penulis, presence: true
   # validates :penerbit, presence: true
   # validates :gambar_buku, presence: true
   # validates :file_buku, presence: true
