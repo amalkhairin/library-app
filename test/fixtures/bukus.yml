@@ -3,7 +3,7 @@
 book1:
   category_id: 1
   barcode: AB1234567890
-  isbn: MyString
+  isbn: 881276182-0
   judul: MyString
   deskripsi: MyString
   penulis: MyString

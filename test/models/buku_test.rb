@@ -13,4 +13,9 @@ class BukuTest < ActiveSupport::TestCase
     @book1.barcode = ""
     assert_not @book1.valid?
   end
+
+  test "isbn should be present" do
+    @book1.isbn = ""
+    assert_not @book1.valid?
+  end
 end
