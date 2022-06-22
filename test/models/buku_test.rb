@@ -34,4 +34,9 @@ class BukuTest < ActiveSupport::TestCase
     assert_not @book1.valid?
   end
 
+  test "jumlah buku should be present" do
+    @book1.jumlah_buku = nil
+    assert_not @book1.valid?
+  end
+
 end
