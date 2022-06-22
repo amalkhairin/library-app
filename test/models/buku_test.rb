@@ -39,4 +39,9 @@ class BukuTest < ActiveSupport::TestCase
     assert_not @book1.valid?
   end
 
+  test "jumlah buku must integer" do
+    @book1.jumlah_buku = "a"
+    assert_not @book1.valid?
+  end
+
 end

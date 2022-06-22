@@ -7,6 +7,6 @@ class Buku < ApplicationRecord
   validates :isbn, presence: true
   validates :judul, presence: true
   validates :penulis, presence: true
-  validates :jumlah_buku, presence: true
+  validates :jumlah_buku, presence: true, numericality: {only_integer: true}
   validates :is_available, presence: true
 end
