@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_22_101522) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_22_132049) do
   create_table "bukus", force: :cascade do |t|
     t.integer "category_id"
     t.string "barcode"
@@ -27,7 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_22_101522) do
     t.string "subject"
     t.string "lokasi"
     t.integer "jumlah_buku"
-    t.integer "isAvailable"
+    t.integer "is_available"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

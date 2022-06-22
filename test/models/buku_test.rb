@@ -28,4 +28,5 @@ class BukuTest < ActiveSupport::TestCase
     @book1.penulis = ''
     assert_not @book1.valid?
   end
+
 end

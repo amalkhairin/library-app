@@ -7,14 +7,6 @@ class Buku < ApplicationRecord
   validates :isbn, presence: true
   validates :judul, presence: true
   validates :penulis, presence: true
-  # validates :penerbit, presence: true
-  # validates :gambar_buku, presence: true
-  # validates :file_buku, presence: true
-  # validates :bahasa, presence: true
-  # validates :edisi, presence: true
-  # validates :tahun_terbit, presence: true
-  # validates :subject, presence: true
-  # validates :lokasi, presence: true
   # validates :jumlah_buku, presence: true
   # validates :isAvailable, presence: true
 end
