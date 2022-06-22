@@ -14,7 +14,7 @@ class UserTest < ActiveSupport::TestCase
 
   # validation test for name
 
-  test "name should be present" do 
+  test "name should be valid format" do 
     @user.name = ""
     assert_not @user.valid?
   end
@@ -25,7 +25,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "name should be a letter" do 
-    @user.name = "3abj"
+    @user.name = "3abj ganteng Dua Ribu"
     assert_not @user.valid?
   end
 

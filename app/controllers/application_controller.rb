@@ -10,6 +10,5 @@ class ApplicationController < ActionController::API
     header = header.split(" ").last if header 
     decoded = jwt_decode(header)
     @current_user = User.find(decoded[:user_id])
-    puts @current_user.role_id
   end
 end
