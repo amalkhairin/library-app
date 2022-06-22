@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_22_125021) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_22_134814) do
   create_table "bukus", force: :cascade do |t|
-    t.integer "id_kategori"
+    t.integer "id_category"
     t.string "barcode"
     t.string "isbn"
     t.string "judul"
