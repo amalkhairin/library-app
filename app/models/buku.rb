@@ -1,4 +1,5 @@
 class Buku < ApplicationRecord
+    has_many :peminjaman_bukus
     validates :id_kategori, presence: true
     validates :barcode, presence: true
     validates :isbn, presence: true
