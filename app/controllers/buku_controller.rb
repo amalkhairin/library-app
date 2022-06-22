@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BukuController < ApplicationController
   def index
     @bukus = Buku.all
@@ -32,9 +34,10 @@ class BukuController < ApplicationController
   end
 
   private
-    def buku_params
-      params.require(:buku).permit(:id_kategori, :barcode, :isbn, :judul, :deskripsi,
-        :penulis, :penerbit, :gambar_buku, :file_buku, :bahasa, :edisi, :tahun_terbit,
-        :subject, :lokasi, :jumlah_buku, :isAvailable)
-    end
+
+  def buku_params
+    params.require(:buku).permit(:id_kategori, :barcode, :isbn, :judul, :deskripsi,
+                                 :penulis, :penerbit, :gambar_buku, :file_buku, :bahasa, :edisi, :tahun_terbit,
+                                 :subject, :lokasi, :jumlah_buku, :isAvailable)
+  end
 end
