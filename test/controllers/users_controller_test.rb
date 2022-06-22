@@ -55,4 +55,16 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     
     assert_response :success
   end
+
+  test "should not update user if not admin" do 
+    @role2 = Role.create(role: "visitor")
+    @user2 = User.create(name: "Gifa", email: "halo2@example.com", username: "gifaraja2", telephone: "0812345678210", password: "admin1", role_id: 2)
+
+    auth_token = sign_in_as(@user2)
+
+    patch user_path(@user), params: {user: {username: "gifaraja3", password: "admin1"} }, headers: {HTTP_AUTHORIZATION: "JWT #{auth_token}"}
+    
+    assert_response :success 
+    puts @response.body
+  end
 end
