@@ -1,7 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  id_kategori: MyString
+book1:
+  category_id: 1
   barcode: MyString
   isbn: MyString
   judul: MyString
@@ -12,14 +12,14 @@ one:
   file_buku: MyString
   bahasa: MyString
   edisi: MyString
-  tahun_terbit: MyString
+  tahun_terbit: 1
   subject: MyString
   lokasi: MyString
-  jumlah_buku: MyString
-  isAvailable: MyString
+  jumlah_buku: 1
+  isAvailable: 1
 
-two:
-  id_kategori: MyString
+book2:
+  category_id: 1
   barcode: MyString
   isbn: MyString
   judul: MyString
@@ -30,8 +30,8 @@ two:
   file_buku: MyString
   bahasa: MyString
   edisi: MyString
-  tahun_terbit: MyString
+  tahun_terbit: 1
   subject: MyString
   lokasi: MyString
-  jumlah_buku: MyString
-  isAvailable: MyString
+  jumlah_buku: 1
+  isAvailable: 1
