@@ -33,7 +33,7 @@ class BukuController < ApplicationController
 
   private
     def buku_params
-      params.require(:buku).permit(:id_category, :barcode, :isbn, :judul, :deskripsi,
+      params.require(:buku).permit(:category_id, :barcode, :isbn, :judul, :deskripsi,
         :penulis, :penerbit, :gambar_buku, :file_buku, :bahasa, :edisi, :tahun_terbit,
         :subject, :lokasi, :jumlah_buku, :isAvailable)
     end

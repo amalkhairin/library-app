@@ -1,7 +1,7 @@
 class Buku < ApplicationRecord
-    # belongs_to :category
+    belongs_to :category
     has_many :peminjaman_bukus
-    validates :id_category, presence: true
+    validates :category_id, presence: true
     # validates :barcode, presence: true
     # validates :isbn, presence: true
     validates :judul, presence: true
