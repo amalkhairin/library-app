@@ -8,7 +8,8 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, format: {with: VALID_EMAIL_REGEX}, uniqueness: true
 
-  validates :username, presence: true, length: {maximum: 20, minimum: 3}, uniqueness: true
+  USERNAME_FORMAT = /\A[a-zA-Z0-9]*\z/
+  validates :username, presence: true, length: {maximum: 20, minimum: 3}, uniqueness: true, format: {with: USERNAME_FORMAT}
 
   PHONE_FORMAT = /\A\d+\Z/ 
   validates :telephone, presence: true, format: {with: PHONE_FORMAT}
