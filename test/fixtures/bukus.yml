@@ -2,8 +2,8 @@
 
 book1:
   category_id: 1
-  barcode: AB1234567890
-  isbn: 881276182-0
+  barcode: MyString
+  isbn: MyString
   judul: MyString
   deskripsi: MyString
   penulis: MyString
@@ -16,7 +16,7 @@ book1:
   subject: MyString
   lokasi: MyString
   jumlah_buku: 1
-  isAvailable: 1
+  is_available: 1
 
 book2:
   category_id: 1
@@ -34,4 +34,4 @@ book2:
   subject: MyString
   lokasi: MyString
   jumlah_buku: 1
-  isAvailable: 1
+  is_available: 1

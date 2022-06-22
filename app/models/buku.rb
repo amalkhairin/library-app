@@ -8,5 +8,5 @@ class Buku < ApplicationRecord
   validates :judul, presence: true
   validates :penulis, presence: true
   # validates :jumlah_buku, presence: true
-  # validates :isAvailable, presence: true
+  validates :is_available, presence: true
 end

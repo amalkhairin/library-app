@@ -29,4 +29,9 @@ class BukuTest < ActiveSupport::TestCase
     assert_not @book1.valid?
   end
 
+  test "availability should be present" do
+    @book1.is_available = ""
+    assert_not @book1.valid?
+  end
+
 end
