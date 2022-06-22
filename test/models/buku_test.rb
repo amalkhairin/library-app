@@ -8,4 +8,9 @@ class BukuTest < ActiveSupport::TestCase
   test "bukus should be valid" do 
     assert @book1.valid?
   end
+
+  test "barcode should be present" do
+    @book1.barcode = ""
+    assert_not @book1.valid?
+  end
 end

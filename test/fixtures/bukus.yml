@@ -2,7 +2,7 @@
 
 book1:
   category_id: 1
-  barcode: MyString
+  barcode: AB1234567890
   isbn: MyString
   judul: MyString
   deskripsi: MyString
