@@ -45,4 +45,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :success
   end
+
+  test "should update user if admin" do 
+    auth_token = sign_in_as(@user)
+    @role2 = Role.create(role: "visitor")
+    @user2 = User.create(name: "Gifa", email: "halo2@example.com", username: "gifaraja2", telephone: "0812345678210", password: "admin1", role_id: 2)
+
+    patch user_path(@user2), params: {user: {username: "gifaraja3", password: "admin1"} }, headers: {HTTP_AUTHORIZATION: "JWT #{auth_token}"}
+    
+    assert_response :success
+  end
 end
