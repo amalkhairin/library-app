@@ -67,4 +67,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success 
     puts @response.body
   end
+
+  test "should update user if same user" do 
+    auth_token = sign_in_as(@user)
+
+    patch user_path(@user), params: {user: {username: "gifaraja3", password: "admin1", role_id: 1} }, headers: {HTTP_AUTHORIZATION: "JWT #{auth_token}"}
+    
+    assert_response :success
+  end
 end
