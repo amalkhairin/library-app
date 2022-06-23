@@ -35,7 +35,7 @@ class BukuController < ApplicationController
 
   def destroy
     @buku = Buku.find(params[:id])
-    puts @buku.destroy
+    render json: {success: "Book has been deleted by admin"}
   end
 
   private

@@ -32,6 +32,7 @@ class BukuControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :success
+    puts @response.body
   end
 
   test 'should not create a new book if not admin' do 
@@ -43,6 +44,7 @@ class BukuControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :success
+     puts @response.body
   end
 
   test 'should delete book if admin' do 
@@ -53,5 +55,17 @@ class BukuControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :success
+    puts @response.body
+  end
+
+  test 'should not delete book if not admin' do 
+    auth_token = sign_in_as(@user2)
+
+    assert_no_difference('Buku.count', -1) do 
+      delete buku_path(@buku), params: {}, headers: {HTTP_AUTHORIZATION: "JWT #{auth_token}"}
+    end
+
+    assert_response :success
+    puts @response.body
   end
 end
