@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class BukuController < ApplicationController
+  before_action :authenticate_request, except: %i[ index show ]
+  before_action :set_buku, only: %i[ show destroy update ]
+  before_action :require_admin, only: %i[ create update destroy ]
+
   def index
     @bukus = Buku.all
     render json: @bukus
@@ -36,8 +40,18 @@ class BukuController < ApplicationController
   private
 
   def buku_params
-    params.require(:buku).permit(:id_kategori, :barcode, :isbn, :judul, :deskripsi,
+    params.require(:buku).permit(:category_id, :barcode, :isbn, :judul, :deskripsi,
                                  :penulis, :penerbit, :gambar_buku, :file_buku, :bahasa, :edisi, :tahun_terbit,
                                  :subject, :lokasi, :jumlah_buku, :isAvailable)
+  end
+
+  def set_buku
+    @buku = Buku.find(params[:id])
+  end
+
+  def require_admin
+    if @current_user.role.role != 'admin'
+      render json: { error: "only admin can do this" }
+    end
   end
 end

@@ -40,7 +40,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not delete user if not admin' do
     @role2 = Role.create(role: 'visitor')
-    @user2 = User.create(name: 'Gifa', email: 'halo2@example.com', username: 'gifaraja2', telephone: '0812345678210',
+    @user2 = User.create(name: 'Gifa', email: 'halo2@example.com', username: 'gifaraja2', 
+                         telephone: '0812345678210',
                          password: 'admin1', role_id: 2)
 
     auth_token = sign_in_as(@user2)
@@ -54,7 +55,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test 'should update user if admin' do
     auth_token = sign_in_as(@user)
     @role2 = Role.create(role: 'visitor')
-    @user2 = User.create(name: 'Gifa', email: 'halo2@example.com', username: 'gifaraja2', telephone: '0812345678210',
+    @user2 = User.create(name: 'Gifa', email: 'halo2@example.com', username: 'gifaraja2',
+                         telephone: '0812345678210',
                          password: 'admin1', role_id: 2)
 
     patch user_path(@user2), params: { user: { username: 'gifaraja3', password: 'admin1' } },
@@ -65,7 +67,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not update user if not admin' do
     @role2 = Role.create(role: 'visitor')
-    @user2 = User.create(name: 'Gifa', email: 'halo2@example.com', username: 'gifaraja2', telephone: '0812345678210',
+    @user2 = User.create(name: 'Gifa', email: 'halo2@example.com', username: 'gifaraja2', 
+                         telephone: '0812345678210',
                          password: 'admin1', role_id: 2)
 
     auth_token = sign_in_as(@user2)
