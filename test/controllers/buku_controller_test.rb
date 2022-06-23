@@ -44,4 +44,14 @@ class BukuControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
   end
+
+  test 'should delete book if admin' do 
+    auth_token = sign_in_as(@user)
+
+    assert_difference('Buku.count', -1) do 
+      delete buku_path(@buku), params: {}, headers: {HTTP_AUTHORIZATION: "JWT #{auth_token}"}
+    end
+
+    assert_response :success
+  end
 end
