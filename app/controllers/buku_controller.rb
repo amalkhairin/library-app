@@ -15,6 +15,7 @@ class BukuController < ApplicationController
   end
 
   def create
+    binding.break
     @buku = Buku.new(buku_params)
     if @buku.save
       render json: @buku, status: :created
@@ -42,7 +43,7 @@ class BukuController < ApplicationController
   def buku_params
     params.require(:buku).permit(:category_id, :barcode, :isbn, :judul, :deskripsi,
                                  :penulis, :penerbit, :gambar_buku, :file_buku, :bahasa, :edisi, :tahun_terbit,
-                                 :subject, :lokasi, :jumlah_buku, :isAvailable)
+                                 :subject, :lokasi, :jumlah_buku, :is_available)
   end
 
   def set_buku
@@ -50,6 +51,7 @@ class BukuController < ApplicationController
   end
 
   def require_admin
+    binding.break
     if @current_user.role.role != 'admin'
       render json: { error: "only admin can do this" }
     end
