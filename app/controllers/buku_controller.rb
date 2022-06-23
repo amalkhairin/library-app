@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class BukuController < ApplicationController
-  before_action :authenticate_request, except: %i[ index show ]
-  before_action :set_buku, only: %i[ show destroy update ]
-  before_action :require_admin, only: %i[ create update destroy ]
+  before_action :authenticate_request, except: %i[index show]
+  before_action :set_buku, only: %i[show destroy update]
+  before_action :require_admin, only: %i[create update destroy]
 
   def index
     @bukus = Buku.all
@@ -15,7 +15,6 @@ class BukuController < ApplicationController
   end
 
   def create
-    binding.break
     @buku = Buku.new(buku_params)
     if @buku.save
       render json: @buku, status: :created
@@ -35,7 +34,7 @@ class BukuController < ApplicationController
 
   def destroy
     @buku = Buku.find(params[:id])
-    render json: {success: "Book has been deleted by admin"}
+    render json: { success: 'Book has been deleted by admin' }
   end
 
   private
@@ -51,9 +50,6 @@ class BukuController < ApplicationController
   end
 
   def require_admin
-    binding.break
-    if @current_user.role.role != 'admin'
-      render json: { error: "only admin can do this" }
-    end
+    render json: { error: 'only admin can do this' } if @current_user.role.role != 'admin'
   end
 end

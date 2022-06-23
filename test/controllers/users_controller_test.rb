@@ -40,7 +40,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not delete user if not admin' do
     @role2 = Role.create(role: 'visitor')
-    @user2 = User.create(name: 'Gifa', email: 'halo2@example.com', username: 'gifaraja2', 
+    @user2 = User.create(name: 'Gifa', email: 'halo2@example.com', username: 'gifaraja2',
                          telephone: '0812345678210',
                          password: 'admin1', role_id: 2)
 
@@ -67,7 +67,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not update user if not admin' do
     @role2 = Role.create(role: 'visitor')
-    @user2 = User.create(name: 'Gifa', email: 'halo2@example.com', username: 'gifaraja2', 
+    @user2 = User.create(name: 'Gifa', email: 'halo2@example.com', username: 'gifaraja2',
                          telephone: '0812345678210',
                          password: 'admin1', role_id: 2)
 
