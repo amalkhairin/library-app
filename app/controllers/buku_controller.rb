@@ -6,6 +6,7 @@ class BukuController < ApplicationController
   before_action :require_admin, only: %i[ create update destroy ]
 
   def index
+    binding.break
     @bukus = Buku.all
     render json: @bukus
   end

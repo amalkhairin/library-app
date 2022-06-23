@@ -3,23 +3,12 @@
 require 'test_helper'
 
 class BukuControllerTest < ActionDispatch::IntegrationTest
-  test 'should get index' do
-    get buku_index_url
-    assert_response :success
+  setup do 
+    @buku = bukus(:book1)
   end
 
-  test 'should get show' do
-    get buku_show_url
-    assert_response :success
-  end
-
-  test 'should get update' do
-    get buku_update_url
-    assert_response :success
-  end
-
-  test 'should get destroy' do
-    get buku_destroy_url
+  test "should list all books" do 
+    get '/buku', as: :json
     assert_response :success
   end
 end
