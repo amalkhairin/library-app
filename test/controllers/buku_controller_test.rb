@@ -78,5 +78,15 @@ class BukuControllerTest < ActionDispatch::IntegrationTest
     assert_not_same(true, old_name != @buku.judul)
     puts @response.body
   end
+
+  test 'should not update specific book if not admin' do 
+    auth_token = sign_in_as(@user2)
+    old_name = @buku.judul
+
+    patch buku_path(@buku), params: {buku: { judul: "Belajar C++"} }, headers: {HTTP_AUTHORIZATION: "JWT #{auth_token}"}
+
+    assert_same(true, old_name == @buku.judul)
+    puts @response.body
+  end
     
 end
