@@ -41,10 +41,12 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test "should update category" do
-  #   patch category_url(@category), params: { category: { name: @category.name } }, as: :json
-  #   assert_response :success
-  # end
+  test "should update category if admin" do
+    auth_token = sign_in_as(@user)
+
+    patch category_url(@category), params: { category: { name: @category.name } }, headers: {HTTP_AUTHORIZATION: "JWT #{auth_token}"}
+    assert_response :success
+  end
 
   # test "should destroy category" do
   #   assert_difference("Category.count", -1) do
