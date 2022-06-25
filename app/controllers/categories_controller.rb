@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i[ show update destroy ]
-  skip_before_action :authenticate_request, only: %i[ index show ]
-  before_action :require_admin, only: %i[ create update destroy ]
+  before_action :set_category, only: %i[show update destroy]
+  skip_before_action :authenticate_request, only: %i[index show]
+  before_action :require_admin, only: %i[create update destroy]
 
   # GET /categories
   def index
@@ -41,19 +43,18 @@ class CategoriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_category
-      @category = Category.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def category_params
-      params.require(:category).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_category
+    @category = Category.find(params[:id])
+  end
 
-    def require_admin
-      if @current_user.role.role != "admin"
-        render json: {error: "you're not admin"}
-      end
-    end
+  # Only allow a list of trusted parameters through.
+  def category_params
+    params.require(:category).permit(:name)
+  end
+
+  def require_admin
+    render json: { error: "you're not admin" } if @current_user.role.role != 'admin'
+  end
 end

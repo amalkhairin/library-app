@@ -9,17 +9,17 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     @user = User.create(name: 'Gifar', email: 'halo@example.com', username: 'gifaraja', telephone: '0812345678910',
                         password: 'admin1', role_id: 1)
-                        
+
     @user2 = User.create(name: 'Gifa', email: 'halo2@example.com', username: 'gifaraja2',
                          telephone: '0812345678210',
                          password: 'admin1', role_id: 2)
 
     @admin_token = sign_in_as(@user)
-    @user_token = sign_in_as(@user2)                    
+    @user_token = sign_in_as(@user2)
   end
 
   test 'should render all user with auth' do
-    get users_path, params: {}, headers: { HTTP_AUTHORIZATION: "JWT #{ @admin_token}" }
+    get users_path, params: {}, headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
     assert_response :success
   end
 
@@ -52,7 +52,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update user if admin' do
     patch user_path(@user2), params: { user: { username: 'gifaraja3', password: 'admin1' } },
-                             headers: { HTTP_AUTHORIZATION: "JWT #{ @admin_token}" }
+                             headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
 
     assert_response :success
   end

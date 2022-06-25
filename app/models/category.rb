@@ -1,6 +1,8 @@
-class Category < ApplicationRecord
-    # has_many :book_categories
-    # has_many :bukus, through: :book_categories
+# frozen_string_literal: true
 
-    validates :name, presence: true, length: {maximum: 20}
+class Category < ApplicationRecord
+  # has_many :book_categories
+  # has_many :bukus, through: :book_categories
+
+  validates :name, presence: true, length: { maximum: 20 }
 end
