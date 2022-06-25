@@ -11,7 +11,6 @@ class Buku < ApplicationRecord
   validates :is_available, presence: true
 
   def self.search(pattern = nil)
-    binding.break
     if pattern.blank?
       all
     else

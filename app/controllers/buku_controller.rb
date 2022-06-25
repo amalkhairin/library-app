@@ -33,7 +33,7 @@ class BukuController < ApplicationController
   end
 
   def destroy
-    @buku = Buku.find(params[:id])
+    @buku.destroy
     render json: { success: 'Book has been deleted by admin' }
   end
 
