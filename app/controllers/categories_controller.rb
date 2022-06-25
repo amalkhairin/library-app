@@ -17,7 +17,6 @@ class CategoriesController < ApplicationController
 
   # POST /categories
   def create
-    binding.break
     @category = Category.new(category_params)
 
     if @category.save
@@ -53,7 +52,6 @@ class CategoriesController < ApplicationController
     end
 
     def require_admin
-      binding.break
       if @current_user.role.role != "admin"
         render json: {error: "you're not admin"}
       end
