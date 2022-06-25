@@ -5,6 +5,7 @@ require 'test_helper'
 class BukuControllerTest < ActionDispatch::IntegrationTest
   setup do
     @buku = bukus(:book1)
+    @category = Category.create(name: "SMA")
     @role = Role.create(role: 'admin')
     @user = User.create(name: 'Gifar', email: 'halo@example.com', username: 'gifaraja', telephone: '0812345678910',
                         password: 'admin1', role_id: 1)
@@ -28,7 +29,7 @@ class BukuControllerTest < ActionDispatch::IntegrationTest
 
     assert_difference('Buku.count', 1) do
       post '/buku',
-           params: { buku: { category_id: 1, barcode: '142352525', isbn: '25252525-23', judul: 'Hai Dunia', penulis: 'Fulan', jumlah_buku: 1, is_available: true } }, headers: { HTTP_AUTHORIZATION: "JWT #{auth_token}" }
+           params: { buku: { category_id: 1, barcode: '142352525', isbn: '25252525-23', judul: 'Hai Dunia', penulis: 'Fulan', jumlah_buku: 1, is_available: true, deskripsi: "Lorem Ipsum" } }, headers: { HTTP_AUTHORIZATION: "JWT #{auth_token}" }
     end
 
     assert_response :success

@@ -15,6 +15,7 @@ class BukuController < ApplicationController
   end
 
   def create
+    binding.break
     @buku = Buku.new(buku_params)
     if @buku.save
       render json: @buku, status: :created
