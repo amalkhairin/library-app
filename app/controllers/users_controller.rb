@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    binding.break
     @user = User.new(user_params)
     if @user.save
       @user.profile = set_profile(@user.email)

@@ -31,7 +31,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test 'should create new user' do
     assert_difference('User.count', 1) do
       post users_path,
-           params: { user: { name: 'Gifar Siapa', email: 'halo1@example.com', username: 'gifaraja2', telephone: '0812345672910', password: 'admin1', role_id: 1 } }, as: :json
+           params: { user: { name: 'Gifar Ganteng', email: 'halo1@example.com', username: 'gifaraja22', telephone: '0812345672910', password: 'admin1', role_id: 1 } }, as: :json
     end
     assert_response :success
   end
@@ -62,7 +62,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
                             headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
 
     assert_response :success
-    puts @response.body
   end
 
   test 'should update user if same user' do
