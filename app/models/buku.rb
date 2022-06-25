@@ -3,6 +3,9 @@
 class Buku < ApplicationRecord
   has_many :peminjaman_bukus
   belongs_to :category
+
+  # has_many :book_categories
+  # has_many :categories, through: :book_categories
   
   validates :deskripsi, presence: true
   validates :penerbit, presence: true
