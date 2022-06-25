@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[ show update destroy ]
   skip_before_action :authenticate_request, only: %i[ index ]
+  before_action :require_admin, only: %i[ create ]
 
   # GET /categories
   def index
@@ -48,5 +49,11 @@ class CategoriesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def category_params
       params.require(:category).permit(:name)
+    end
+
+    def require_admin
+      if @current_user.role != 1
+        render json: {error: "you're not admin"}
+      end
     end
 end
