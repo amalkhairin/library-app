@@ -2,6 +2,10 @@
 
 class Buku < ApplicationRecord
   has_many :peminjaman_bukus
+  belongs_to :category
+  
+  validates :deskripsi, presence: true
+  validates :penerbit, presence: true
   validates :category_id, presence: true
   validates :barcode, presence: true
   validates :isbn, presence: true
@@ -17,4 +21,5 @@ class Buku < ApplicationRecord
       where('judul LIKE ?', "%#{pattern[:title].downcase}%") 
     end
   end
+
 end
