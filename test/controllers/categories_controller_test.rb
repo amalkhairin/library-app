@@ -19,8 +19,8 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
   test "create category if admin" do
     auth_token = sign_in_as(@user)
 
-    assert_difference("Category.count") do
-      post categories_url, params: { category: { name: @category.name } }, headers: {HTTP_AUTHORIZATION: "JWT #{auth_token}"}
+    assert_difference("Category.count", 1) do
+      post categories_url, params: { category: { name: 'IPA' } }, headers: {HTTP_AUTHORIZATION: "JWT #{auth_token}"}
     end
 
     assert_response :created
@@ -45,7 +45,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     auth_token = sign_in_as(@user)
     old_category = @category.name
 
-    patch category_url(@category), params: { category: { name: @category.name } }, headers: {HTTP_AUTHORIZATION: "JWT #{auth_token}"}
+    patch category_url(@category), params: { category: { name: "Matematika" } }, headers: {HTTP_AUTHORIZATION: "JWT #{auth_token}"}
     assert_not_same(true, old_category != @category.name)
   end
 
