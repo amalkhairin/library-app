@@ -36,10 +36,10 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test "should show category" do
-  #   get category_url(@category), as: :json
-  #   assert_response :success
-  # end
+  test "should show a spesific category" do
+    get category_url(@category), as: :json
+    assert_response :success
+  end
 
   # test "should update category" do
   #   patch category_url(@category), params: { category: { name: @category.name } }, as: :json
