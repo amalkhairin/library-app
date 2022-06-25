@@ -9,4 +9,13 @@ class Buku < ApplicationRecord
   validates :penulis, presence: true
   validates :jumlah_buku, presence: true, numericality: { only_integer: true }
   validates :is_available, presence: true
+
+  def self.search(pattern = nil)
+    binding.break
+    if pattern.blank?
+      all
+    else
+      where('judul LIKE ?', "%#{pattern[:title].downcase}%") 
+    end
+  end
 end
