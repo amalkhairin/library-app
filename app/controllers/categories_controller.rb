@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[ show update destroy ]
   skip_before_action :authenticate_request, only: %i[ index show ]
-  before_action :require_admin, only: %i[ create ]
+  before_action :require_admin, only: %i[ create update ]
 
   # GET /categories
   def index
@@ -52,6 +52,7 @@ class CategoriesController < ApplicationController
     end
 
     def require_admin
+      binding.break
       if @current_user.role != 1
         render json: {error: "you're not admin"}
       end

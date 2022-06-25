@@ -43,17 +43,19 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update category if admin" do
     auth_token = sign_in_as(@user)
+    old_category = @category.name
 
     patch category_url(@category), params: { category: { name: @category.name } }, headers: {HTTP_AUTHORIZATION: "JWT #{auth_token}"}
-    assert_response :success
+    assert_not_same(true, old_category != @category.name)
   end
 
   test "should not update category if not admin" do
     auth_token = sign_in_as(@user2)
+    old_category = @category.name
 
     patch category_url(@category), params: { category: { name: @category.name } }, headers: {HTTP_AUTHORIZATION: "JWT #{auth_token}"}
-    assert_response :success
-    puts @response.body
+
+    assert_same(true, old_category == @category.name )
   end
 
   # test "should destroy category" do
