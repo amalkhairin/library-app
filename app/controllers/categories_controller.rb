@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[ show update destroy ]
   skip_before_action :authenticate_request, only: %i[ index show ]
-  before_action :require_admin, only: %i[ create update ]
+  before_action :require_admin, only: %i[ create update destroy ]
 
   # GET /categories
   def index

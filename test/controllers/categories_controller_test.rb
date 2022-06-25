@@ -58,11 +58,23 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     assert_same(true, old_category == @category.name )
   end
 
-  # test "should destroy category" do
-  #   assert_difference("Category.count", -1) do
-  #     delete category_url(@category), as: :json
-  #   end
+  test "should delete category if admin" do
+    auth_token = sign_in_as(@user)
 
-  #   assert_response :no_content
-  # end
+    assert_difference("Category.count", -1) do
+      delete category_url(@category),params: {}, headers: {HTTP_AUTHORIZATION: "JWT #{auth_token}"}
+    end
+
+    assert_response :no_content
+  end
+
+  test "should not delete category if not admin" do
+    auth_token = sign_in_as(@user2)
+    
+    assert_no_difference("Category.count") do
+      delete category_url(@category),params: {}, headers: {HTTP_AUTHORIZATION: "JWT #{auth_token}"}
+    end
+
+    assert(Category.all.include?(@category))
+  end
 end
