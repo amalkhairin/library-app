@@ -1,7 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 book1:
-  category_id: 1
   barcode: 07567616421
   isbn: 978-602-8519-93-9
   judul: Laskar Pelangi
@@ -19,7 +18,6 @@ book1:
   is_available: true
 
 book2:
-  category_id: 1
   barcode: 07567616422
   isbn: 978-602-8519-93-6
   judul: Hello World
