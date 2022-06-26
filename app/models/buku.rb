@@ -2,6 +2,7 @@
 
 class Buku < ApplicationRecord
   has_many :peminjaman_bukus
+  has_many :bukus, through: :peminjaman_bukus
 
   has_many :book_categories
   has_many :categories, through: :book_categories
