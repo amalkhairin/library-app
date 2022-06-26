@@ -20,4 +20,9 @@ class CategoryTest < ActiveSupport::TestCase
     @category.name = 'a' * 21
     assert_not @category.valid?
   end
+
+  test 'category should be uniq' do 
+    new_category = Category.create(name: @category.name)
+    assert_not new_category.valid?
+  end
 end
