@@ -6,9 +6,7 @@ class PeminjamanBukusController < ApplicationController
 
   def create 
     @loan = PeminjamanBuku.new(set_book_params)
-    binding.break
     if @loan.save
-      binding.break
       update_book(Buku.find(params[:buku_id]))
 
       data = {
@@ -28,16 +26,15 @@ class PeminjamanBukusController < ApplicationController
   
   def check_user_and_book_status
     @book = Buku.find_by(id: params[:buku_id])
-
+    binding.break
     if @current_user.buku_ids.length > 100 || !@book.is_available
-      render json: {status:"404", messages: "you can't loan book more than 2 or book not available"}
+      render json: {status:"200", messages: "you can't loan book more than 2 or book not available"}
     end
   end
 
   def update_book(book)
     total_update_book = book.jumlah_buku - 1
     book.update_column(:jumlah_buku, total_update_book)
-
     book.update_column(:is_available, false) if total_update_book == 0
   end
 end
