@@ -38,18 +38,9 @@ class BukuController < ApplicationController
   end
 
   private
-
-  def buku_params
-    params.require(:buku).permit( :barcode, :isbn, :judul, :deskripsi,
-                                 :penulis, :penerbit, :gambar_buku, :file_buku, :bahasa, :edisi, :tahun_terbit,
-                                 :subject, :lokasi, :jumlah_buku, :is_available, category_ids: [])
-  end
-
-  def set_buku
-    @buku = Buku.find(params[:id])
-  end
-
-  def require_admin
-    render json: { error: 'only admin can do this' } if @current_user.role.role != 'admin'
-  end
+    def buku_params
+      params.require(:buku).permit(:id_category, :barcode, :isbn, :judul, :deskripsi,
+        :penulis, :penerbit, :gambar_buku, :file_buku, :bahasa, :edisi, :tahun_terbit,
+        :subject, :lokasi, :jumlah_buku, :isAvailable)
+    end
 end
