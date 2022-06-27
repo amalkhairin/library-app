@@ -1,37 +1,35 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  id_kategori: MyString
-  barcode: MyString
-  isbn: MyString
-  judul: MyString
-  deskripsi: MyString
-  penulis: MyString
-  penerbit: MyString
+book1:
+  barcode: 07567616421
+  isbn: 978-602-8519-93-9
+  judul: Laskar Pelangi
+  deskripsi: Lorem Ipsum
+  penulis: Gifar Al Anshar
+  penerbit: Generasi Gigih
   gambar_buku: MyString
   file_buku: MyString
-  bahasa: MyString
-  edisi: MyString
-  tahun_terbit: MyString
+  bahasa: Indonesia
+  edisi: kedua
+  tahun_terbit: 2000
   subject: MyString
-  lokasi: MyString
-  jumlah_buku: MyString
-  isAvailable: MyString
+  lokasi: Jakarta
+  jumlah_buku: 1
+  is_available: true
 
-two:
-  id_kategori: MyString
-  barcode: MyString
-  isbn: MyString
-  judul: MyString
-  deskripsi: MyString
-  penulis: MyString
-  penerbit: MyString
+book2:
+  barcode: 07567616422
+  isbn: 978-602-8519-93-6
+  judul: Hello World
+  deskripsi: Lorem Ipsum
+  penulis: Gifar Al Anshar
+  penerbit: Generasi Gigih
   gambar_buku: MyString
   file_buku: MyString
-  bahasa: MyString
-  edisi: MyString
-  tahun_terbit: MyString
+  bahasa: Inggris
+  edisi: pertama
+  tahun_terbit: 2022
   subject: MyString
-  lokasi: MyString
-  jumlah_buku: MyString
-  isAvailable: MyString
+  lokasi: Jakarta
+  jumlah_buku: 1
+  is_available: true

@@ -6,10 +6,39 @@ For more information, see [WIKI](https://github.com/amalkhairin/library-app/wiki
 
 # README
 
-Update push
+## Update push 26-Juni-2022
 
-1. Create Gravatar for default profile
-2. Fix users_controller_test.rb
-3. Fix user_test.rb
-   - create name format so the name only alphabet and spaces
-   * create username format so username only alphabet and/or num without spaces
+### 1. Menambahkan gem
+
+Menambahkan gem rubocop ke dalam Gemfile, gunakan rubocop -A untuk menjalankan autocorrection ruby style guide [GitHub Pages](https://rubocop.org/).
+
+### 2. Memperbaiki bug di CRUD Buku
+
+**Column isAvailable telah __diganti__ menjadi is_available dengan nilai awal integer menjadi boolean**.
+
+* Menambahakan validasi kedalam model Buku (Lihat **app/model/buku.rb**).
+
+* Membuat model test pada buku gunakan **rails test .\test\models\buku_test.rb** untuk menjalankan test.
+
+* Membuat controller test pada buku gunakan **rails test .\test\controllers\buku_controller_test.rb** untuk menjalankan test.
+
+### 3. Memperbaiki Bug di CRUD Category
+
+* **Mengubah** relasi antara category dan buku menjadi N:N, dengan table sebagai berikut
+   * Table Categories
+   * Table Book_Categories sebagai perantara 
+   * Table Buku
+ Lihat *schema.rb* untuk melihat detail column pada masing-masing table.
+ 
+* Menambahkan Controller test pada category gunakan **rails test .\test\controllers\categories_controller_test.rb** untuk menjalankan test.
+* Menambahkan Model test pada category gunakan **rails test .\test\models\category_test.rb** untuk menjalankan test.
+
+### 4.Membuat Fitur Search Book
+Membuat fitur untuk melakukan pencarian buku sesuai judul
+
+### 5. Refactor Code Agar Lebih Mudah Dibaca
+
+Hanya menerapkan clean code pada project
+
+  
+   

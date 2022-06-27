@@ -1,4 +1,10 @@
+# frozen_string_literal: true
+
 class BukuController < ApplicationController
+  before_action :authenticate_request, except: %i[index show]
+  before_action :set_buku, only: %i[show destroy update]
+  before_action :require_admin, only: %i[create update destroy]
+
   def index
     @bukus = Buku.all
     render json: @bukus
@@ -27,14 +33,23 @@ class BukuController < ApplicationController
   end
 
   def destroy
-    @buku = Buku.find(params[:id])
-    puts @buku.destroy
+    @buku.destroy
+    render json: { success: 'Book has been deleted by admin' }
   end
 
   private
-    def buku_params
-      params.require(:buku).permit(:category_id, :barcode, :isbn, :judul, :deskripsi,
-        :penulis, :penerbit, :gambar_buku, :file_buku, :bahasa, :edisi, :tahun_terbit,
-        :subject, :lokasi, :jumlah_buku, :isAvailable)
-    end
+
+  def buku_params
+    params.require(:buku).permit( :barcode, :isbn, :judul, :deskripsi,
+                                 :penulis, :penerbit, :gambar_buku, :file_buku, :bahasa, :edisi, :tahun_terbit,
+                                 :subject, :lokasi, :jumlah_buku, :is_available, category_ids: [])
+  end
+
+  def set_buku
+    @buku = Buku.find(params[:id])
+  end
+
+  def require_admin
+    render json: { error: 'only admin can do this' } if @current_user.role.role != 'admin'
+  end
 end
