@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  belongs_to :role9
+  belongs_to :role
   has_many :peminjaman_bukus, dependent: :destroy
   has_many :bukus, through: :peminjaman_bukus
 
