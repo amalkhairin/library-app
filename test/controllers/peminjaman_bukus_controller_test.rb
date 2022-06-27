@@ -8,6 +8,7 @@ class PeminjamanBukusControllerTest < ActionDispatch::IntegrationTest
     @role2 = Role.create(role: "visitor")
 
     @user = User.create(name: "Cristiano Ronaldo", username: 'ronaldo', email: 'ronaldo@gmail.com', telephone: '0888888888', password: 'admin1', role_id: 2)
+
     @book1 = bukus(:book1)
     @book2 = bukus(:book2)
   
@@ -25,6 +26,14 @@ class PeminjamanBukusControllerTest < ActionDispatch::IntegrationTest
   test 'user can not borrow book if book not available' do
     assert_no_difference('@user.peminjaman_bukus.count') do 
       post "/buku/#{@book2.id}/peminjaman_bukus", params: {buku_id: @book2.id}, headers: {HTTP_AUTHORIZATION: "JWT #{@user_token}"}
+    end
+
+    assert_response :success
+  end
+
+  test 'book will be reduced by one if it is successfully borrowed' do
+    assert_difference('@book1.jumlah_buku', 0) do
+      post "/buku/#{@book1.id}/peminjaman_bukus", params: {buku_id: @book1.id}, headers: {HTTP_AUTHORIZATION: "JWT #{@user_token}"}
     end
 
     assert_response :success

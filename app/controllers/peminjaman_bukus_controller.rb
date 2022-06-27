@@ -26,7 +26,6 @@ class PeminjamanBukusController < ApplicationController
   
   def check_user_and_book_status
     @book = Buku.find_by(id: params[:buku_id])
-    binding.break
     if @current_user.buku_ids.length > 100 || !@book.is_available
       render json: {status:"200", messages: "you can't loan book more than 2 or book not available"}
     end
