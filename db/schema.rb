@@ -39,6 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_24_042936) do
   end
 
   create_table "peminjaman_bukus", force: :cascade do |t|
+    t.integer "id_user"
     t.integer "id_buku"
     t.datetime "jadwal_pinjam"
     t.datetime "jadwal_kembali"
