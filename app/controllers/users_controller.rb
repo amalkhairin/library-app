@@ -25,8 +25,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.profile = set_profile(@user.email)
     if @user.save
+      @user.profile = set_profile(@user.email)
       render json: @user, statu: :ok
     else
       render json: @user.errors, status: :unprocessable_entity
