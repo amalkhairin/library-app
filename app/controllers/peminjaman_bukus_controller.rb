@@ -2,6 +2,7 @@
 
 class PeminjamanBukusController < ApplicationController
   before_action :authenticate_request
+  before_action :find_transaction, only: %i[ destroy ]
   before_action :check_user_and_book_status, only: %i[ create ]
 
   def create 
@@ -17,7 +18,16 @@ class PeminjamanBukusController < ApplicationController
     end
   end
 
+  def destroy
+    @loan.destroy
+    render json: {message: "Deleted Successfully", status: "200"}
+  end
+
   private
+
+  def find_transaction
+    @loan = PeminjamanBuku.find(params[:id])
+  end
 
   def set_book_params
     defaults = {jadwal_pinjam: Time.now, jadwal_kembali: 7.days.from_now, user_id: @current_user.id}
