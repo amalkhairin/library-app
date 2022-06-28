@@ -45,18 +45,30 @@ class PeminjamanBukusControllerTest < ActionDispatch::IntegrationTest
     @loan = PeminjamanBuku.create(user_id: @user.id, buku_id: @book1.id, jadwal_pinjam: Time.now, jadwal_kembali: 7.days.from_now)
 
     assert_difference('PeminjamanBuku.count', -1) do
-      delete  "/user/#{@user.id}/peminjaman_buku/#{@loan.id}", params: {}, headers: {HTTP_AUTHORIZATION: "JWT #{@admin_token}"}
+      delete  "/user/#{@user.id}/pe minjaman_buku/#{@loan.id}", params: {}, headers: {HTTP_AUTHORIZATION: "JWT #{@admin_token}"}
     end 
 
     assert_response :success
   end
 
-   test 'visitor can not delete book loan transaction' do
+  test 'visitor can not delete book loan transaction' do
     @loan = PeminjamanBuku.create(user_id: @user.id, buku_id: @book1.id, jadwal_pinjam: Time.now, jadwal_kembali: 7.days.from_now)
 
     assert_no_difference('PeminjamanBuku.count') do
       delete  "/user/#{@user.id}/peminjaman_buku/#{@loan.id}", params: {}, headers: {HTTP_AUTHORIZATION: "JWT #{@user_token}"}
     end 
+
+    assert_response :success
+  end
+
+  test 'the number of books will increase after returning books' do
+    assert_difference('@user.peminjaman_bukus.count', 1) do 
+      post "/buku/#{@book1.id}/peminjaman_buku", params: {buku_id: @book1.id}, headers: {HTTP_AUTHORIZATION: "JWT #{@user_token}"}
+    end
+
+    assert_no_difference('@book1.jumlah_buku') do
+      delete  "/user/#{@user.id}/peminjaman_buku/#{PeminjamanBuku.last.id}", params: {}, headers: {HTTP_AUTHORIZATION: "JWT #{@admin_token}"}
+    end
 
     assert_response :success
   end

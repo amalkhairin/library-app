@@ -9,8 +9,8 @@ class PeminjamanBukusController < ApplicationController
   def create 
     @loan = PeminjamanBuku.new(set_book_params)
     if @loan.save
-      update_book(Buku.find(params[:buku_id]))
-
+      update_book(Buku.find(params[:buku_id]), "loan")
+      binding.break
       data = {
         user: @current_user.as_json(only: %i[ id name email address ]),
         book: @loan.as_json(only: %i[ buku_id jadwal_pinjam jadwal_kembali ])
@@ -20,7 +20,11 @@ class PeminjamanBukusController < ApplicationController
   end
 
   def destroy
+    book_id = @loan.buku_id
     @loan.destroy
+    binding.break
+    update_book(Buku.find_by(id: book_id), "return")
+    binding.break
     render json: {message: "Deleted Successfully", status: "200"}
   end
 
@@ -48,8 +52,8 @@ class PeminjamanBukusController < ApplicationController
     end
   end 
 
-  def update_book(book)
-    total_update_book = book.jumlah_buku - 1
+  def update_book(book, status)
+    total_update_book = (status == "loan" ? book.jumlah_buku - 1 : book.jumlah_buku + 1)
     book.update_column(:jumlah_buku, total_update_book)
     book.update_column(:is_available, false) if total_update_book == 0
   end
