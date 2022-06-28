@@ -50,4 +50,14 @@ class PeminjamanBukusControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
   end
+
+   test 'visitor can not delete book loan transaction' do
+    @loan = PeminjamanBuku.create(user_id: @user.id, buku_id: @book1.id, jadwal_pinjam: Time.now, jadwal_kembali: 7.days.from_now)
+
+    assert_no_difference('PeminjamanBuku.count') do
+      delete  "/user/#{@user.id}/peminjaman_buku/#{@loan.id}", params: {}, headers: {HTTP_AUTHORIZATION: "JWT #{@user_token}"}
+    end 
+
+    assert_response :success
+  end
 end

@@ -4,6 +4,7 @@ class PeminjamanBukusController < ApplicationController
   before_action :authenticate_request
   before_action :find_transaction, only: %i[ destroy ]
   before_action :check_user_and_book_status, only: %i[ create ]
+  before_action :require_admin, only: %i[ destroy ]
 
   def create 
     @loan = PeminjamanBuku.new(set_book_params)
@@ -40,6 +41,12 @@ class PeminjamanBukusController < ApplicationController
       render json: {status:"200", messages: "you can't loan book more than 2 or book not available"}
     end
   end
+
+  def require_admin
+    if @current_user.role.role != "admin"
+      render json: {messages: "Only admin can do this action", status: "200"} 
+    end
+  end 
 
   def update_book(book)
     total_update_book = book.jumlah_buku - 1
