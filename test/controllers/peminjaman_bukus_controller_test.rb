@@ -35,7 +35,7 @@ class PeminjamanBukusControllerTest < ActionDispatch::IntegrationTest
 
   test 'book will be reduced by one if it is successfully borrowed' do
     assert_difference('@book1.jumlah_buku', 0) do
-      post "/buku/#{@book1.id}/peminjaman_bukus", params: {buku_id: @book1.id}, headers: {HTTP_AUTHORIZATION: "JWT #{@user_token}"}
+      post "/buku/#{@book1.id}/peminjaman_buku", params: {buku_id: @book1.id}, headers: {HTTP_AUTHORIZATION: "JWT #{@user_token}"}
     end
 
     assert_response :success
@@ -46,7 +46,7 @@ class PeminjamanBukusControllerTest < ActionDispatch::IntegrationTest
 
     assert_difference('PeminjamanBuku.count', -1) do
       delete  "/user/#{@user.id}/peminjaman_buku/#{@loan.id}", params: {}, headers: {HTTP_AUTHORIZATION: "JWT #{@admin_token}"}
-    end
+    end 
 
     assert_response :success
   end
