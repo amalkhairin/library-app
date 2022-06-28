@@ -72,4 +72,6 @@ class PeminjamanBukusControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
   end
+
+  test ''
 end

@@ -55,6 +55,6 @@ class PeminjamanBukusController < ApplicationController
   def update_book(book, status)
     total_update_book = (status == "loan" ? book.jumlah_buku - 1 : book.jumlah_buku + 1)
     book.update_column(:jumlah_buku, total_update_book)
-    book.update_column(:is_available, false) if total_update_book == 0
+    total_update_book == 0 ? book.update_column(:is_available, false) : book.update_column(:is_available, true)
   end
 end
