@@ -21,13 +21,13 @@ class CategoryTest < ActiveSupport::TestCase
     assert_not @category.valid?
   end
 
-  test 'category should be uniq' do 
+  test 'category should be uniq' do
     new_category = Category.create(name: @category.name)
     assert_not new_category.valid?
   end
 
   test 'category name should be lowercase' do
-    new_category = Category.create(name: "BaHasA InDonesia")
+    new_category = Category.create(name: 'BaHasA InDonesia')
     assert_same(true, new_category.name == new_category.name.downcase)
   end
 end

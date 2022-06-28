@@ -6,7 +6,7 @@ class Buku < ApplicationRecord
 
   has_many :book_categories
   has_many :categories, through: :book_categories
- 
+
   validates :deskripsi, presence: true
   validates :penerbit, presence: true
   validates :barcode, presence: true
