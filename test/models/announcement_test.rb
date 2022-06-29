@@ -18,4 +18,14 @@ class AnnouncementTest < ActiveSupport::TestCase
     @announcement.title = 'a' * 101
     assert_not @announcement.valid?
   end
+
+  test 'announcement can have many categories' do
+    category1 = announcement_categories(:category1)
+    category2 = announcement_categories(:category2)
+    @announcement.announcement_category_ids = [category1.id, category2.id]
+
+    assert_includes(@announcement.announcement_categories, category1)
+    assert_includes(@announcement.announcement_categories, category2)
+  end
+
 end
