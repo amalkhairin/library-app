@@ -1,11 +1,24 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get '/search', to: 'search#search_title'
-  resources :categories
-  resources :users
+  # for login
   post '/login', to: 'sessions#create'
+
+  # for search book
+  get '/search', to: 'search#search_title'
+
+  # for CRUD category
+  resources :categories, only: %i[ create update destroy index show ]
+
+  # for CRUD users
+  resources :users, only: %i[ create update destroy index show ]
+
+  # for CRUD buku
   resources :buku, only: %i[create update destroy index show]
+
+  # for CRUD announcement
+  resources :announcements, only: %i[create update destroy index show]
+
   # create book loan transaction
   post '/buku/:buku_id/peminjaman_buku', to: 'peminjaman_bukus#create'
 
