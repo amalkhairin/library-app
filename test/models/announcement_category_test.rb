@@ -13,4 +13,9 @@ class AnnouncementCategoryTest < ActiveSupport::TestCase
     @announcement_category.category_name = ''
     assert_not @announcement_category.valid?
   end
+
+  test 'announcement category name should not be too long' do
+    @announcement_category.category_name = 'a' * 26
+    assert_not @announcement_category.valid?
+  end
 end
