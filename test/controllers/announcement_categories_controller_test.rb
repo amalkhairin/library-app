@@ -29,4 +29,13 @@ class AnnouncementCategoriesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
   end
+
+  test 'should not create announcement category if not admin' do 
+    assert_no_difference('AnnouncementCategory.count') do
+      post announcement_categories_path,
+           params: { category_name: 'Libur Lagi' } , headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
+    end
+
+    assert_response :success
+  end  
 end
