@@ -13,4 +13,9 @@ class AnnouncementTest < ActiveSupport::TestCase
     @announcement.title = ''
     assert_not @announcement.valid?
   end
+
+  test 'title announcement should not be too long' do
+    @announcement.title = 'a' * 101
+    assert_not @announcement.valid?
+  end
 end
