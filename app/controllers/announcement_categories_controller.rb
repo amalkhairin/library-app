@@ -1,7 +1,7 @@
 class AnnouncementCategoriesController < ApplicationController
   before_action :authenticate_request, except: %i[ index ]
-  before_action :set_category_params, only: %i[ update ]
-  before_action :require_admin, only: %i[ create update ]
+  before_action :set_category_params, only: %i[ update destroy ]
+  before_action :require_admin, only: %i[ create update destroy ]
 
 
   def index 
@@ -26,6 +26,11 @@ class AnnouncementCategoriesController < ApplicationController
     else
       rener json: {status: :unprocessable_entity, errors: @new_category.errors }
     end
+  end
+
+  def destroy
+    @new_category.destroy
+    render json: {status: "200", messages: 'deleted successfully'}
   end
 
   private
