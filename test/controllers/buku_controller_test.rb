@@ -81,10 +81,11 @@ class BukuControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update book category if admin' do
-    category1 = Category.create(name: "Bahasa")
-    category2 = Category.create(name: "IPA")
+    category1 = Category.create(name: 'Bahasa')
+    category2 = Category.create(name: 'IPA')
 
-    patch buku_path(@buku), params: { buku: {category_ids: [category1.id, category2.id] } }, headers: {HTTP_AUTHORIZATION: "JWT #{@admin_token}"}
+    patch buku_path(@buku), params: { buku: { category_ids: [category1.id, category2.id] } },
+                            headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
 
     assert_includes(@buku.categories, category1)
   end
