@@ -9,13 +9,13 @@
 
 # admin = User.create([{name: "admin", role_id:1, username: "admin", password: "admin", email: "admin@example.com", telephone: "0812345678210"}])
 
-# buku = Buku.create([{judul:"Buku Bahasa Indonesia SMP Kelas 8", deskripsi: "Buku Bahasa Indonesia SMP Kelas 8",penulis:"I Made Eko Satria Wiguna",penerbit:"Gajah Pintar",jumlah_buku:12, isAvailable:1}])
+# buku = Buku.create([{judul:"Buku Bahasa Indonesia SMP Kelas 8", deskripsi: "Buku Bahasa Indonesia SMP Kelas 8",penulis:"I Made Eko Satria Wiguna",penerbit:"Gajah Pintar",jumlah_buku:12, is_available: true}])
 
 # category = Category.create([{name: "Bahasa Indonesia"}])
 
 # review_bukus = ReviewBuku.create([{user_id: 1, buku_id:1, rating: 4, ulasan:"Buku ini menarik sekali"}])
 
-# user = User.create(name: 'user', role_id: 2, username: 'user12', password: 'password', email: 'user@example.com', telephone: '08123444441342')
+# user = User.create(name: 'user', role_id: 2, username: 'user', password: 'password', email: 'user@example.com', telephone: '08123444441342')
     
 # buku = Buku.create(judul:"Buku Bahasa Indonesia SMP Kelas 8", deskripsi: "Buku Bahasa Indonesia SMP Kelas 8",penulis:"I Made Eko Satria Wiguna",penerbit:"Gajah Pintar",jumlah_buku:12, is_available: true)
     
