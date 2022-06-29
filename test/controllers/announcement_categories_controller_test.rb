@@ -54,14 +54,26 @@ class AnnouncementCategoriesControllerTest < ActionDispatch::IntegrationTest
 
     patch announcement_category_path(@announcement_category), 
                                      params: { category_name: 'new category'},
-                                     headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
+                                     headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
 
     assert_same(true, old_name == @announcement_category.category_name)
   end
 
   test 'should delete announcement category if admin' do
     assert_difference('AnnouncementCategory.count', -1) do
-      delete announcement_category_path(@announcement_category), params: {}, headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
+      delete announcement_category_path(@announcement_category), 
+                                        params: {},
+                                        headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
+    end
+
+    assert_response :success
+  end
+
+  test 'should not delete announcement category if not admin' do
+    assert_no_difference('AnnouncementCategory.count') do
+      delete announcement_category_path(@announcement_category), 
+                                        params: {}, 
+                                        headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
     end
 
     assert_response :success
