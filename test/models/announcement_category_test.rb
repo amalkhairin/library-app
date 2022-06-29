@@ -8,4 +8,9 @@ class AnnouncementCategoryTest < ActiveSupport::TestCase
   test 'announcement category should be valid' do 
     assert @announcement_category.valid?
   end
+
+  test 'announcement category name should be present' do
+    @announcement_category.category_name = ''
+    assert_not @announcement_category.valid?
+  end
 end
