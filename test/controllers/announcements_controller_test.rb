@@ -45,4 +45,13 @@ class AnnouncementsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
   end
+
+  test 'should not update announcement if not admin' do
+    old_title = @announcement.title
+
+    patch announcement_path(@announcement), params: {title: 'Males Buka Perpus' },
+                            headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
+
+    assert_same(true, old_title == @announcement.title)
+  end
 end
