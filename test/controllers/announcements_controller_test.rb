@@ -2,7 +2,7 @@ require "test_helper"
 
 class AnnouncementsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @announcement = announcements(:announcement1)
+    @announcement = announcements(:announcement1) 
 
     @role1 = Role.create(role: 'admin')
     @role2 = Role.create(role: 'visitor')
@@ -27,5 +27,14 @@ class AnnouncementsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :success
+  end
+
+  test 'should update announcement if admin' do
+    old_title = @announcement.title
+
+    patch announcement_path(@announcement), params: {title: 'Males Buka Perpus' },
+                            headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
+
+    assert_not_same(true, old_title != @announcement.title)
   end
 end

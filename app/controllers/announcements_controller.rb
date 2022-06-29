@@ -1,10 +1,10 @@
 class AnnouncementsController < ApplicationController
   before_action :authenticate_request, except: %i[ show ]
-  before_action :set_announcement, only: %i[ show ]
-  before_action :require_admin, only: %i[ create ]
+  before_action :set_announcement, only: %i[ show update ]
+  before_action :require_admin, only: %i[ create update ]
 
   def show
-    render json: {status: "200", announcement: @announcement.as_json}
+    render json: {status: "200", announcement: @announcement.as_json}.to_json
   end
 
   def create
@@ -14,6 +14,14 @@ class AnnouncementsController < ApplicationController
       render json: {status: "200", announcement: @announcement}
     else
       render json: {status: :unprocessable_entity, error: @announcement.errors}
+    end
+  end
+
+  def update
+    if @announcement.update(announcement_params)
+      render json: {status: "200", messages: "OK", announcement: @announcement.as_json}
+    else
+      render json: {status: "200", error: @announcement.errors}
     end
   end
 
