@@ -19,6 +19,11 @@ class AnnouncementCategoryTest < ActiveSupport::TestCase
     assert_not @announcement_category.valid?
   end
 
+  test 'announcement category should be uniq' do
+    new_announcement = AnnouncementCategory.create(category_name: @announcement_category.category_name)
+    assert_not new_announcement.valid?
+  end
+
   test 'announcement category can have many articles' do
     announcement1 = announcements(:announcement1)
     announcement2 = announcements(:announcement2)
