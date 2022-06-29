@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_29_073918) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_29_091400) do
+  create_table "announcement_categories", force: :cascade do |t|
+    t.string "category_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "announcement_category_relations", force: :cascade do |t|
+    t.integer "announcement_category_id"
+    t.integer "announcement_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "announcements", force: :cascade do |t|
     t.string "title"
     t.string "description"
