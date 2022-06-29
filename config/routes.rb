@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   # for CRUD buku
   resources :buku, only: %i[create update destroy index show]
 
+  # for CRUD announcement category
+  resources :announcement_categories
+
   # for CRUD announcement
   resources :announcements, only: %i[create update destroy index show]
 
