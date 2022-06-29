@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
 # roles = Role.create([{id: 1, role: "admin"}, {id: 2, role: "visitor"}])
 
 # admin = User.create([{name: "admin", role_id:1, username: "admin", password: "admin", email: "admin@example.com", telephone: "0812345678210"}])
@@ -26,7 +27,10 @@
 # book2 = Buku.create(judul: 'Sejarah Bahasa 2', deskripsi: 'Mempelajari sejarah bahasa indonesia 2', penerbit: 'Generasi Gigih', barcode: '1412342352', isbn: '124141242', penulis: 'Gifar', jumlah_buku: 2, is_available: true)
             
 # book3 = Buku.create(judul: 'Sejarah Bahasa 3', deskripsi: 'Mempelajari sejarah bahasa indonesia 3', penerbit: 'Generasi Gigih', barcode: '14123342352', isbn: '1241413242', penulis: 'Gifar', jumlah_buku: 2, is_available: false)
-                
+  
+# To delete all data from the specified table
+# Remove "#" from the beginning of the string to
+
 Role.delete_all
 User.delete_all
 Buku.delete_all
