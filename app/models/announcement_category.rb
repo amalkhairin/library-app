@@ -1,0 +1,2 @@
+class AnnouncementCategory < ApplicationRecord
+end
