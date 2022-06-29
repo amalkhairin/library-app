@@ -1,7 +1,7 @@
 class AnnouncementCategoriesController < ApplicationController
   before_action :authenticate_request, except: %i[ index ]
-  before_action :category_params, only: %i[ create ]
-  before_action :require_admin, only: %i[ create ]
+  before_action :set_category_params, only: %i[ update ]
+  before_action :require_admin, only: %i[ create update ]
 
 
   def index 
@@ -20,7 +20,19 @@ class AnnouncementCategoriesController < ApplicationController
     end
   end
 
+  def update
+    if @new_category.update(category_params)
+      render json: {status: "200", new_category_announcement: @new_category.as_json}
+    else
+      rener json: {status: :unprocessable_entity, errors: @new_category.errors }
+    end
+  end
+
   private
+
+  def set_category_params
+    @new_category = AnnouncementCategory.find(params[:id])
+  end
 
   def category_params
     params.permit(:category_name)

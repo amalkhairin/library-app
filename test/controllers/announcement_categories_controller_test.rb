@@ -39,5 +39,12 @@ class AnnouncementCategoriesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end  
 
-  
+  test 'should update announcement category if admin' do
+    old_name = @announcement_category.category_name
+
+    patch announcement_category_path(@announcement_category), params: { category_name: 'new category'},
+                            headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
+
+    assert_not_same(true, old_name != @announcement_category.category_name)
+  end
 end
