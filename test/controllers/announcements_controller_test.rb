@@ -39,8 +39,8 @@ class AnnouncementsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not create new announcement if not admin' do 
-    assert_difference('Announcement.count') do
-      post announcements_path, params: {title: "Libur Semester Ganjil"}, headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
+    assert_no_difference('Announcement.count') do
+      post announcements_path, params: {title: "Libur Semester Ganjil"}, headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
     end
 
     assert_response :success
