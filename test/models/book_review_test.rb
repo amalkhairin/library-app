@@ -36,4 +36,9 @@ class BookReviewTest < ActiveSupport::TestCase
     @review.review = ''
     assert_not @review.valid?
   end
+
+  test "book review should not be too long" do 
+    @review.review = 'a' * 101
+    assert_not @review.valid?
+  end
 end
