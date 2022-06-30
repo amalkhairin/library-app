@@ -13,4 +13,9 @@ class BookReviewTest < ActiveSupport::TestCase
     @review.rating = nil
     assert_not @review.valid?
   end
+
+  test "book review rating should be integer" do
+    @review.rating = "A"
+    assert_not @review.valid?
+  end
 end
