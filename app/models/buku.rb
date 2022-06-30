@@ -14,7 +14,6 @@ class Buku < ApplicationRecord
   validates :judul, presence: true
   validates :penulis, presence: true
   validates :jumlah_buku, presence: true, numericality: { only_integer: true }
-  validates :is_available, presence: true
 
   def self.search(pattern = nil)
     if pattern.blank?

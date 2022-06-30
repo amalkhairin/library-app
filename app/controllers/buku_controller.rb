@@ -16,6 +16,9 @@ class BukuController < ApplicationController
 
   def create
     @buku = Buku.new(buku_params)
+
+    @buku.is_available = params[:jumlah_buku] > 0 ?   true : false
+
     if @buku.save
       render json: @buku, status: :created
     else
@@ -24,7 +27,8 @@ class BukuController < ApplicationController
   end
 
   def update
-    @buku = Buku.find(params[:id])
+    @buku.is_available = params[:jumlah_buku] > 0 ?   true : false
+
     if @buku.update(buku_params)
       render json: @buku, status: :ok
     else
@@ -40,9 +44,8 @@ class BukuController < ApplicationController
   private
 
   def buku_params
-    params.require(:buku).permit(:barcode, :isbn, :judul, :deskripsi,
-                                 :penulis, :penerbit, :gambar_buku, :file_buku, :bahasa, :edisi, :tahun_terbit,
-                                 :subject, :lokasi, :jumlah_buku, :is_available, category_ids: [])
+    params.permit(:barcode, :isbn, :judul, :deskripsi,:penulis, :penerbit, :gambar_buku, 
+                  :file_buku, :bahasa, :edisi, :tahun_terbit, :subject, :lokasi, :jumlah_buku, category_ids: [])
   end
 
   def set_buku
