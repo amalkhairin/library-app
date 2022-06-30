@@ -17,10 +17,18 @@ class BookReviewTest < ActiveSupport::TestCase
   test "book review rating should be integer" do
     @review.rating = "A"
     assert_not @review.valid?
+
+    @review.rating = 0.44
+    assert_not @review.valid?
   end
 
   test "book review rating should not be greater than 5" do
-    @review.rating = "A"
+    @review.rating = 7
+    assert_not @review.valid?
+  end
+
+  test "book review rating should nopt be less than 1" do
+    @review.rating = 0
     assert_not @review.valid?
   end
 end
