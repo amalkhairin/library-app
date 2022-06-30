@@ -1,54 +1,55 @@
 # frozen_string_literal: true
 
 class PeminjamanBukusController < ApplicationController
-  before_action :set_peminjaman_buku, only: %i[show update destroy]
+  before_action :authenticate_request
+  before_action :find_transaction, only: %i[destroy]
+  before_action :check_user_and_book_status, only: %i[create]
+  before_action :require_admin, only: %i[destroy]
 
-  # GET /peminjaman_bukus
-  def index
-    @peminjaman_bukus = PeminjamanBuku.all
-
-    render json: @peminjaman_bukus
-  end
-
-  # GET /peminjaman_bukus/1
-  def show
-    render json: @peminjaman_buku
-  end
-
-  # POST /peminjaman_bukus
   def create
-    @peminjaman_buku = PeminjamanBuku.new(peminjaman_buku_params)
-
-    if @peminjaman_buku.save
-      render json: @peminjaman_buku, status: :created, location: @peminjaman_buku
-    else
-      render json: @peminjaman_buku.errors, status: :unprocessable_entity
+    @loan = PeminjamanBuku.new(set_book_params)
+    if @loan.save
+      update_book(Buku.find(params[:buku_id]), 'loan')
+      data = {
+        user: @current_user.as_json(only: %i[id name email address]),
+        book: @loan.as_json(only: %i[buku_id jadwal_pinjam jadwal_kembali])
+      }
+      render json: { messages: 'OK', success: true, data: data }.to_json
     end
   end
 
-  # PATCH/PUT /peminjaman_bukus/1
-  def update
-    if @peminjaman_buku.update(peminjaman_buku_params)
-      render json: @peminjaman_buku
-    else
-      render json: @peminjaman_buku.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /peminjaman_bukus/1
   def destroy
-    @peminjaman_buku.destroy
+    book_id = @loan.buku_id
+    @loan.destroy
+    update_book(Buku.find_by(id: book_id), 'return')
+    render json: { message: 'Deleted Successfully', status: '200' }
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_peminjaman_buku
-    @peminjaman_buku = PeminjamanBuku.find(params[:id])
+  def find_transaction
+    @loan = PeminjamanBuku.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
-  def peminjaman_buku_params
-    params.require(:peminjaman_buku).permit(:id_user, :id_buku, :jadwal_pinjam, :jadwal_kembali, :status)
+  def set_book_params
+    defaults = { jadwal_pinjam: Time.now, jadwal_kembali: 7.days.from_now, user_id: @current_user.id }
+    params.permit(:user_id, :jadwal_pinjam, :jadwal_kembali, :buku_id).reverse_merge(defaults)
+  end
+
+  def check_user_and_book_status
+    @book = Buku.find_by(id: params[:buku_id])
+    if @current_user.buku_ids.length > 100 || !@book.is_available
+      render json: { status: '200', messages: "you can't loan book more than 2 or book not available" }
+    end
+  end
+
+  def require_admin
+    render json: { messages: 'Only admin can do this action', status: '200' } if @current_user.role.role != 'admin'
+  end
+
+  def update_book(book, status)
+    total_update_book = (status == 'loan' ? book.jumlah_buku - 1 : book.jumlah_buku + 1)
+    book.update_column(:jumlah_buku, total_update_book)
+    total_update_book.zero? ? book.update_column(:is_available, false) : book.update_column(:is_available, true)
   end
 end

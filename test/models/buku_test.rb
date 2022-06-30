@@ -45,4 +45,9 @@ class BukuTest < ActiveSupport::TestCase
     @book1.jumlah_buku = 'a'
     assert_not @book1.valid?
   end
+
+  test 'buku should be uniq' do
+    buku = Buku.create(judul: @book1.judul)
+    assert_not buku.valid?
+  end
 end
