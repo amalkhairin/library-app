@@ -62,4 +62,12 @@ class AnnouncementsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
   end
+
+  test 'should not delete announcement if not admin' do 
+    assert_no_difference('Announcement.count') do
+      delete announcement_path(@announcement), params: {}, headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
+    end
+
+    assert_response :success
+  end
 end
