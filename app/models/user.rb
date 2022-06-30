@@ -4,7 +4,7 @@ class User < ApplicationRecord
   belongs_to :role
   has_many :peminjaman_bukus, dependent: :destroy
   has_many :bukus, through: :peminjaman_bukus
-
+  has_many :announcements
   NAME_FORMAT = /\A[a-zA-Z\s]*\z/
   validates :name, presence: true, length: { maximum: 255 }, format: { with: NAME_FORMAT }
 

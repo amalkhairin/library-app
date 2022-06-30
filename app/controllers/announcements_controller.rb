@@ -9,6 +9,7 @@ class AnnouncementsController < ApplicationController
 
   def create
     @announcement = Announcement.new(announcement_params)
+    @announcement.user = @current_user if @current_user.role.role = 'admin'
 
     if @announcement.save
       render json: {status: "200", announcement: @announcement}
