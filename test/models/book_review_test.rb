@@ -31,4 +31,9 @@ class BookReviewTest < ActiveSupport::TestCase
     @review.rating = 0
     assert_not @review.valid?
   end
+
+  test "book review should be present" do 
+    @review.review = ''
+    assert_not @review.valid?
+  end
 end
