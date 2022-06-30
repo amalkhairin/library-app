@@ -8,4 +8,9 @@ class BookReviewTest < ActiveSupport::TestCase
   test "book review should be valid" do
     assert @review.valid?
   end
+
+  test "book review rating should be present" do
+    @review.rating = nil
+    assert_not @review.valid?
+  end
 end
