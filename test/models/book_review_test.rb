@@ -18,4 +18,9 @@ class BookReviewTest < ActiveSupport::TestCase
     @review.rating = "A"
     assert_not @review.valid?
   end
+
+  test "book review rating should not be greater than 5" do
+    @review.rating = "A"
+    assert_not @review.valid?
+  end
 end
