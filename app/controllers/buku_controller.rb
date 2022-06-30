@@ -18,7 +18,7 @@ class BukuController < ApplicationController
     @buku = Buku.new(buku_params)
     if @buku.save
       @buku.is_available = params[:buku][:jumlah_buku].to_i > 0 ?   true : false
-      render json: @buku, status: :created
+      render json: {status: "200", data_buku: @buku.json }
     else
       render json: @buku.errors, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class BukuController < ApplicationController
     @buku.is_available = params[:buku][:jumlah_buku].to_i > 0 ?   true : false
 
     if @buku.update(buku_params)
-      render json: @buku, status: :ok
+      render json: {data_buku: @buku.as_json, status: :ok}
     else
       render json: @buku.errors, status: :unprocessable_entity
     end

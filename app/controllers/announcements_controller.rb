@@ -1,7 +1,7 @@
 class AnnouncementsController < ApplicationController
   before_action :authenticate_request, except: %i[ show ]
-  before_action :set_announcement, only: %i[ show update ]
-  before_action :require_admin, only: %i[ create update ]
+  before_action :set_announcement, only: %i[ show update destroy ]
+  before_action :require_admin, only: %i[ create update destroy ]
 
   def show
     render json: {status: "200", announcement: @announcement.as_json}.to_json
@@ -24,6 +24,12 @@ class AnnouncementsController < ApplicationController
     else
       render json: {status: "200", error: @announcement.errors}
     end
+  end
+
+  def destroy
+    @announcement.destroy
+    
+    render json: {status: "OK", message: "announcement has been deleted"}
   end
 
   private
