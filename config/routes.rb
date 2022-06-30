@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   # for CRUD announcement
   resources :announcements, only: %i[create update destroy index show]
 
+  # for get all reveiew from spesific book
+  get '/buku/:buku_id/reviews', to: 'book_reviews#index'
+
   # create book loan transaction
   post '/buku/:buku_id/peminjaman_buku', to: 'peminjaman_bukus#create'
 
