@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_25_130814) do
   end
 
   create_table "bukus", force: :cascade do |t|
+    t.integer "id_kategori"
     t.string "barcode"
     t.string "isbn"
     t.string "judul"
@@ -53,15 +54,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_25_130814) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
-  end
-
-  create_table "review_bukus", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "buku_id"
-    t.integer "rating"
-    t.text "ulasan"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "roles", force: :cascade do |t|
