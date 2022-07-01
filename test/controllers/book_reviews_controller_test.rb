@@ -23,4 +23,16 @@ class BookReviewsControllerTest < ActionDispatch::IntegrationTest
     get "/buku/#{@book.id}/reviews"
     assert_response :success
   end
+
+  test 'should create new book reviews on spesific book' do 
+    @user3 =  User.create(name: 'Gifar Ketiga', email: 'halo3@example.com', username: 'gifaraja3',
+                         telephone: '0812345678922', password: 'admin1', role_id: 2)
+    
+    user_token = sign_in_as(@user3)
+
+    post "/buku/#{@book.id}/reviews", params: { rating: 2, review: "kurang bagus"}, headers: {HTTP_AUTHORIZATION: "JWT #{user_token}"}
+
+    assert_includes(@book.book_reviews, @user3.book_reviews[0])
+    assert_response :success
+  end
 end

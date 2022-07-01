@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   # for get all reveiew from spesific book
   get '/buku/:buku_id/reviews', to: 'book_reviews#index'
 
+  # for create new review on spesific book
+  post '/buku/:buku_id/reviews', to: 'book_reviews#create'
+
   # create book loan transaction
   post '/buku/:buku_id/peminjaman_buku', to: 'peminjaman_bukus#create'
 
