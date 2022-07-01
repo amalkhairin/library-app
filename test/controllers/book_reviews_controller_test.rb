@@ -64,14 +64,14 @@ class BookReviewsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should edit review if same user' do
+  test 'should update review if same user' do
     old_rating = @review2.rating
     old_review = @review2.review
 
     patch "/buku/#{@book.id}/reviews/edit/#{@review2.id}", params: { rating: 5, review: "bukunya bagus, sangat jelas"}, headers: {HTTP_AUTHORIZATION: "JWT #{@user_token}"}
 
-    assert_not_same(true, old_rating != @review2.rating )
-    assert_not_same(true, old_review != @review2.review )
+    assert_equal(false, old_rating != @review2.rating)
+    assert_equal(false, old_review != @review2.review )
   end
 
   test 'should not edit review if not same user' do
@@ -80,7 +80,16 @@ class BookReviewsControllerTest < ActionDispatch::IntegrationTest
 
     patch "/buku/#{@book.id}/reviews/edit/#{@review2.id}", params: { rating: 5, review: "bukunya bagus, sangat jelas"}, headers: {HTTP_AUTHORIZATION: "JWT #{@admin_token}"}
 
-    assert_same(true, old_rating == @review2.rating )
-    assert_same(true, old_review == @review2.review )
+    assert_equal(true, old_rating == @review2.rating )
+    assert_equal(true, old_review == @review2.review )
+  end
+
+  test 'should delete review if admin' do 
+
+    assert_difference('@book.book_reviews.length', -1) do
+      delete "/buku/#{@book.id}/reviews/delete/#{@review2.id}", params: {}, headers: {HTTP_AUTHORIZATION: "JWT #{@admin_token}"}
+    end
+
+    assert_response :success
   end
 end

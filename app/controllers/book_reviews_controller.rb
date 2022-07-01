@@ -1,7 +1,8 @@
 class BookReviewsController < ApplicationController
   before_action :authenticate_request, except: %i[ index ]
   before_action :allowed_review?, only: %i[ create ]
-  before_action :set_book_review, :require_same_user,  only: %i[ update ]
+  before_action :set_book_review, only: %i[ update destroy ]
+  before_action :require_same_user, only: %i[ update destroy ]
 
   def index 
     @book_reviews = Buku.find_by(id: params[:buku_id]).book_reviews
@@ -21,7 +22,18 @@ class BookReviewsController < ApplicationController
   end
 
   def update
-    
+    if @book_review.update(review_params)
+      render json: {status: "200", book_review: @book_review.as_json} 
+    else
+      render json: {status: :unprocessable_entity, errors: @book_review.errors} 
+    end
+  end
+
+  def destroy
+    binding.break
+    @book_review.destroy
+
+    render json: {status: "200", message: "review has been deleted"}
   end
 
   private 
@@ -42,6 +54,6 @@ class BookReviewsController < ApplicationController
   end
 
   def require_same_user
-    render json: {status: "200", message: "only edit your own"} if @current_user.id != @book_review.user_id 
+    render json: {status: "200", message: "only edit your own"} if @current_user.id != @book_review.user_id && @current_user.role.role != 'admin'
   end
 end
