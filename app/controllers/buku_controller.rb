@@ -17,16 +17,18 @@ class BukuController < ApplicationController
   def create
     @buku = Buku.new(buku_params)
     if @buku.save
-      render json: @buku, status: :created
+      @buku.is_available = params[:buku][:jumlah_buku].to_i > 0 ?   true : false
+      render json: {status: "200", data_buku: @buku.as_json }
     else
       render json: @buku.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    @buku = Buku.find(params[:id])
+    @buku.is_available = params[:buku][:jumlah_buku].to_i > 0 ?   true : false
+
     if @buku.update(buku_params)
-      render json: @buku, status: :ok
+      render json: {data_buku: @buku.as_json, status: :ok}
     else
       render json: @buku.errors, status: :unprocessable_entity
     end
@@ -40,9 +42,8 @@ class BukuController < ApplicationController
   private
 
   def buku_params
-    params.require(:buku).permit(:barcode, :isbn, :judul, :deskripsi,
-                                 :penulis, :penerbit, :gambar_buku, :file_buku, :bahasa, :edisi, :tahun_terbit,
-                                 :subject, :lokasi, :jumlah_buku, :is_available, category_ids: [])
+    params.require(:buku).permit(:barcode, :isbn, :judul, :deskripsi,:penulis, :penerbit, :gambar_buku, 
+                  :file_buku, :bahasa, :edisi, :tahun_terbit, :subject, :lokasi, :jumlah_buku, category_ids: [])
   end
 
   def set_buku

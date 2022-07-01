@@ -51,3 +51,12 @@ Hanya menerapkan clean code pada project
 - User tidak dapat meminjam buku jika buku tidak tersedia
 - User tidak bisa menghapus tranksaksi peminjaman
 - Admin dapat menghapus tranksaksi peminjaman (pengembalian)
+
+## update push 29-Juni-2022
+
+### fitur announcement
+
+- Membuat announcement table, announcement_category table, dan announcement_category_relation table
+- Admin dapat membuat, menghapus, dan mengedit pengumuman
+- User hanya dapat melihat pengumuman
+- Lihat masing-masing model untuk mengetahui validasinya

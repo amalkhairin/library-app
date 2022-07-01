@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+announcement1:
+  title: Libur Semester
+  description: Liburan Semester Genap
+  user_id: 1
+
+announcement2:
+  title: Libur Nasional
+  description: Libur Lebaran Idul Fitri
+  user_id: 1

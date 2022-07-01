@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_26_032915) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_30_112716) do
+  create_table "announcement_categories", force: :cascade do |t|
+    t.string "category_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "announcement_category_relations", force: :cascade do |t|
+    t.integer "announcement_category_id"
+    t.integer "announcement_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "announcements", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+  end
+
   create_table "book_categories", force: :cascade do |t|
     t.integer "category_id"
     t.integer "buku_id"
@@ -19,7 +40,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_26_032915) do
   end
 
   create_table "bukus", force: :cascade do |t|
-    t.integer "id_kategori"
     t.string "barcode"
     t.string "isbn"
     t.string "judul"
@@ -53,6 +73,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_26_032915) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+  end
+
+  create_table "review_bukus", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "buku_id"
+    t.integer "rating"
+    t.text "ulasan"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "roles", force: :cascade do |t|
