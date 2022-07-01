@@ -39,4 +39,7 @@ Rails.application.routes.draw do
 
   # delete loan transaction
   delete '/user/:user_id/peminjaman_buku/:id', to: 'peminjaman_bukus#destroy'
+
+  # daftar buku yang dipinjam
+  get 'peminjaman_buku/list/buku/:user_id', to: 'peminjaman_bukus#index'
 end

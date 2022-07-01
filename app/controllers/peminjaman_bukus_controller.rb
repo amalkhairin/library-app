@@ -6,6 +6,13 @@ class PeminjamanBukusController < ApplicationController
   before_action :check_user_and_book_status, only: %i[create]
   before_action :require_admin, only: %i[destroy]
 
+  def index
+    user = User.find(params[:user_id])
+    book_list = user.bukus
+
+    render json: {status: "200", book_list: @book_list.as_json}
+  end
+
   def create
     @loan = PeminjamanBuku.new(set_book_params)
     if @loan.save
