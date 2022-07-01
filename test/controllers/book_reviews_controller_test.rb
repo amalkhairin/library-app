@@ -45,7 +45,7 @@ class BookReviewsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'kedua' do
+  test 'should not create new book review on spesific book if already gave a review' do
     assert_difference('@user2.peminjaman_bukus.count', 1) do
       post "/buku/#{@book.id}/peminjaman_buku", params: { buku_id: @book.id },
                                                 headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
@@ -62,5 +62,15 @@ class BookReviewsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :success
+  end
+
+  test 'should edit review if same user' do
+    old_rating = @review2.rating
+    old_review = @review2.review
+
+    patch "/buku/#{@book.id}/reviews/edit/#{@review2.id}", params: { rating: 5, review: "bukunya bagus, sangat jelas"}, headers: {HTTP_AUTHORIZATION: "JWT #{@user_token}"}
+
+    assert_not_same(true, old_rating != @review2.rating )
+    assert_not_same(true, old_review != @review2.review )
   end
 end

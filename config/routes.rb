@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   # for create new review on spesific book
   post '/buku/:buku_id/reviews', to: 'book_reviews#create'
 
+  # for update review on spesific book
+  patch '/buku/:buku_id/reviews/edit/:id', to: 'book_reviews#update'
+
   # create book loan transaction
   post '/buku/:buku_id/peminjaman_buku', to: 'peminjaman_bukus#create'
 
