@@ -42,7 +42,6 @@ class BookReviewsController < ApplicationController
   end
 
   def require_same_user
-    binding.break
     render json: {status: "200", message: "only edit your own"} if @current_user.id != @book_review.user_id 
   end
 end

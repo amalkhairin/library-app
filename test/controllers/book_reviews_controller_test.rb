@@ -73,4 +73,14 @@ class BookReviewsControllerTest < ActionDispatch::IntegrationTest
     assert_not_same(true, old_rating != @review2.rating )
     assert_not_same(true, old_review != @review2.review )
   end
+
+  test 'should not edit review if not same user' do
+    old_rating = @review2.rating
+    old_review = @review2.review
+
+    patch "/buku/#{@book.id}/reviews/edit/#{@review2.id}", params: { rating: 5, review: "bukunya bagus, sangat jelas"}, headers: {HTTP_AUTHORIZATION: "JWT #{@admin_token}"}
+
+    assert_same(true, old_rating == @review2.rating )
+    assert_same(true, old_review == @review2.review )
+  end
 end
