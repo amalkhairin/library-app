@@ -7,8 +7,8 @@ class BookReviewsControllerTest < ActionDispatch::IntegrationTest
     @role1 = Role.create(role: 'admin')
     @role2 = Role.create(role: 'visitor')
 
-    @user = User.create(name: 'Gifar', email: 'halo@example.com', username: 'gifaraja', telephone: '0812345678910',
-                        password: 'admin1', role_id: 1)
+    @user = User.create(name: 'Gifar', email: 'halo@example.com', username: 'gifaraja', 
+                        telephone: '0812345678910',password: 'admin1', role_id: 1)
     @user2 = User.create(name: 'Gifar Kedua', email: 'halo2@example.com', username: 'gifaraja2',
                          telephone: '0812345678911', password: 'admin1', role_id: 2)
 
@@ -24,15 +24,24 @@ class BookReviewsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should create new book reviews on spesific book' do 
-    @user3 =  User.create(name: 'Gifar Ketiga', email: 'halo3@example.com', username: 'gifaraja3',
-                         telephone: '0812345678922', password: 'admin1', role_id: 2)
-    
-    user_token = sign_in_as(@user3)
+  test 'should create new book review on spesific book if the user has borrowed the book' do 
+    assert_difference('@user2.peminjaman_bukus.count', 1) do
+      post "/buku/#{@book.id}/peminjaman_buku", params: { buku_id: @book.id },
+                                                headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
+    end
 
-    post "/buku/#{@book.id}/reviews", params: { rating: 2, review: "kurang bagus"}, headers: {HTTP_AUTHORIZATION: "JWT #{user_token}"}
+    post "/buku/#{@book.id}/reviews", params: { rating: 2, review: "kurang bagus"}, headers: {HTTP_AUTHORIZATION: "JWT #{@user_token}"}
 
-    assert_includes(@book.book_reviews, @user3.book_reviews[0])
+    assert_includes(@book.book_reviews, @user2.book_reviews[0])
+    assert_response :success
+  end
+
+  test 'should not create new book review on spesific book if the user never borrowed the book' do 
+    @user2.bukus = []
+
+    post "/buku/#{@book.id}/reviews", params: { rating: 2, review: "kurang bagus"}, headers: {HTTP_AUTHORIZATION: "JWT #{@user_token}"}
+
+    assert_not_includes(@book.book_reviews, @user2.book_reviews[0])
     assert_response :success
   end
 end
