@@ -44,4 +44,23 @@ class BookReviewsControllerTest < ActionDispatch::IntegrationTest
     assert_not_includes(@book.book_reviews, @user2.book_reviews[0])
     assert_response :success
   end
+
+  test 'kedua' do
+    assert_difference('@user2.peminjaman_bukus.count', 1) do
+      post "/buku/#{@book.id}/peminjaman_buku", params: { buku_id: @book.id },
+                                                headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
+    end
+
+    # add first review 
+    post "/buku/#{@book.id}/reviews", params: { rating: 2, review: "kurang bagus"}, headers: {HTTP_AUTHORIZATION: "JWT #{@user_token}"}
+
+    assert_includes(@book.book_reviews, @user2.book_reviews[0])
+
+    # should not add second review
+    assert_no_difference('@book.book_reviews.length') do
+      post "/buku/#{@book.id}/reviews", params: { rating: 1, review: "kurang bagus"}, headers: {HTTP_AUTHORIZATION: "JWT #{@user_token}"}
+    end
+
+    assert_response :success
+  end
 end

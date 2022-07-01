@@ -30,5 +30,6 @@ class BookReviewsController < ApplicationController
     binding.break
     book = Buku.find(params[:buku_id])
     render json: {status: "200", messages: "never borrowed the book"} if !@current_user.bukus.include?(book)
+    render json: {status: "200", messages: "already gave a review"} if @current_user.book_reviews.length > 1
   end
 end
