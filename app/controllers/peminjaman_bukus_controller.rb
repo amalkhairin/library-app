@@ -10,7 +10,7 @@ class PeminjamanBukusController < ApplicationController
     user = User.find(params[:user_id])
     book_list = user.bukus
 
-    render json: {status: "200", book_list: @book_list.as_json}
+    render json: { status: '200', book_list: @book_list.as_json }
   end
 
   def create

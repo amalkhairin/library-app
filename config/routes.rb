@@ -8,10 +8,10 @@ Rails.application.routes.draw do
   get '/search', to: 'search#search_title'
 
   # for CRUD category
-  resources :categories, only: %i[ create update destroy index show ]
+  resources :categories, only: %i[create update destroy index show]
 
   # for CRUD users
-  resources :users, only: %i[ create update destroy index show ]
+  resources :users, only: %i[create update destroy index show]
 
   # for CRUD buku
   resources :buku, only: %i[create update destroy index show]

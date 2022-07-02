@@ -1,11 +1,13 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class AnnouncementCategoryTest < ActiveSupport::TestCase
-  setup do 
+  setup do
     @announcement_category = announcement_categories(:category1)
   end
 
-  test 'announcement category should be valid' do 
+  test 'announcement category should be valid' do
     assert @announcement_category.valid?
   end
 

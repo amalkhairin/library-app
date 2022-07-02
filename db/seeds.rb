@@ -41,3 +41,94 @@ announcement = Announcement.create(title:"Cara peminjaman buku", description:"be
 # BookCategory.delete_all
 # AnnouncementCategory.delete_all
 # Announcement.delete_all
+
+# role hanya mengisi dua data yaitu admin dengan id = 1, dan visitor id = 2 
+# roles = Role.create([
+#           { role: 'admin' }, 
+#           { role: 'visitor' }
+#         ])
+
+# pembuatan akun user
+# user = User.create([
+#           {
+#             name: 'admin', 
+#             role_id: 1, 
+#             username: 'admin',
+#             password: 'admin',
+#             email: 'admin@example.com',
+#             telephone: '0812345678210'
+#           },
+#           {
+#             name: 'user pertama', 
+#             role_id: 2, 
+#             username: 'user1', 
+#             password: 'password', 
+#             email: 'user@example.com',
+#             telephone: '08123444441342'
+#           },
+#           {
+#             name: 'user kedua', 
+#             role_id: 2, 
+#             username: 'user2', 
+#             password: 'password', 
+#             email: 'user2@example.com',
+#             telephone: '08123444441341'
+#           } 
+#         ])
+
+
+# # Book Category
+
+# category = Category.create([
+#             { name: 'Bahasa Indonesia' }, 
+#             { name: 'IPA' }, 
+#             { name: 'Ekonomi' }
+#           ])
+
+
+
+# # Book
+
+# book1 = Buku.create([ 
+#             {
+#               judul: 'Sejarah Bahasa', 
+#               deskripsi: 'Mempelajari sejarah bahasa indonesia',
+#               penerbit: 'Generasi Gigih', 
+#               barcode: '141234235', 
+#               isbn: '12414124', 
+#               penulis: 'Gifar', 
+#               jumlah_buku: 3, 
+#               is_available: true
+#             },
+#             {
+#               judul: 'Sejarah Bahasa 2', 
+#               deskripsi: 'Mempelajari sejarah bahasa indonesia 2',
+#               penerbit: 'Generasi Gigih', 
+#               barcode: '1412342352', 
+#               isbn: '124141242', 
+#               penulis: 'Gifar', 
+#               jumlah_buku: 5,
+#               is_available: true
+#             },
+#             {
+#               judul: 'Sejarah Bahasa 3', 
+#               deskripsi: 'Mempelajari sejarah bahasa indonesia 3',
+#               penerbit: 'Generasi Gigih', 
+#               barcode: '14123342352', 
+#               isbn: '1241413242', 
+#               penulis: 'Gifar', 
+#               jumlah_buku: 0, 
+#               is_available: false
+#             }
+#         ])
+
+# # Announcement Category 
+
+# announcement_category = AnnouncementCategory.create([
+#       {
+#         category_name: "libur"
+#       },
+#       {
+#         category_name: "maintenance"
+#       }
+# ])

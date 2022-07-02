@@ -5,13 +5,24 @@ require 'test_helper'
 class CategoriesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @category = categories(:category1)
-    role = Role.create(role: 'admin')
-    role = Role.create(role: 'visitor')
 
-    @user = User.create(name: 'Gifar', email: 'halo@example.com', username: 'gifaraja', telephone: '0812345678910',
-                        password: 'admin1', role_id: 1)
-    @user2 = User.create(name: 'Gifar Dua', email: 'halo2@example.com', username: 'gifaraja2',
-                         telephone: '0812345678910', password: 'admin1', role_id: 2)
+    @user = User.create(
+                name: 'Gifar', 
+                email: 'halo@example.com', 
+                username: 'gifaraja', 
+                telephone: '0812345678910',
+                password: 'admin1', 
+                role_id: roles(:admin).id
+            )
+
+    @user2 = User.create(
+              name: 'Gifar Dua', 
+              email: 'halo2@example.com', 
+              username: 'gifaraja2',
+              telephone: '0812345678910', 
+              password: 'admin1', 
+              role_id: roles(:visitor).id
+          )
 
     @admin_token = sign_in_as(@user)
     @user_token = sign_in_as(@user2)
@@ -24,7 +35,8 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
 
   test 'create category if admin' do
     assert_difference('Category.count', 1) do
-      post categories_url, params: { category: { name: 'IPA' } }, headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
+      post categories_url, params: { category: { name: 'IPA' } }, 
+                           headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
     end
 
     assert_response :created
@@ -32,7 +44,8 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not create category if not admin' do
     assert_no_difference('Category.count') do
-      post categories_url, params: { category: { name: 'Math' } }, headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
+      post categories_url, params: { category: { name: 'Math' } }, 
+                           headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
     end
 
     assert_response :success
@@ -62,7 +75,8 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should delete category if admin' do
     assert_difference('Category.count', -1) do
-      delete category_url(@category), params: {}, headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
+      delete category_url(@category), params: {}, 
+                                      headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
     end
 
     assert_response :no_content
@@ -70,7 +84,8 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not delete category if not admin' do
     assert_no_difference('Category.count') do
-      delete category_url(@category), params: {}, headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
+      delete category_url(@category), params: {}, 
+                                      headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
     end
 
     assert(Category.all.include?(@category))
