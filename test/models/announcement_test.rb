@@ -1,7 +1,9 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class AnnouncementTest < ActiveSupport::TestCase
-  setup do 
+  setup do
     @announcement = announcements(:announcement1)
   end
 
@@ -31,5 +33,4 @@ class AnnouncementTest < ActiveSupport::TestCase
     assert_includes(@announcement.announcement_categories, category1)
     assert_includes(@announcement.announcement_categories, category2)
   end
-
 end

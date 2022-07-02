@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   has_many :book_reviews
   has_many :bukus, through: :book_reviews
-  
+
   NAME_FORMAT = /\A[a-zA-Z\s]*\z/
   validates :name, presence: true, length: { maximum: 255 }, format: { with: NAME_FORMAT }
 

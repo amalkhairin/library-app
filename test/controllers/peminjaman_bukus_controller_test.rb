@@ -52,8 +52,8 @@ class PeminjamanBukusControllerTest < ActionDispatch::IntegrationTest
 
     assert_difference('PeminjamanBuku.count', -1) do
       delete  "/user/#{@user.id}/peminjaman_buku/#{@loan.id}",
-                                                  params: {}, 
-                                                  headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
+              params: {},
+              headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
     end
 
     assert_response :success

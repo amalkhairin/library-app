@@ -40,7 +40,7 @@ class BukuControllerTest < ActionDispatch::IntegrationTest
   test 'should not create a new book if not admin' do
     assert_no_difference('Buku.count') do
       post '/buku',
-           params: { buku: { barcode: '142352525', isbn: '25252525-23', judul: 'Hai Dunia', penulis: 'Fulan', jumlah_buku: 1} }, headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
+           params: { buku: { barcode: '142352525', isbn: '25252525-23', judul: 'Hai Dunia', penulis: 'Fulan', jumlah_buku: 1 } }, headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
     end
 
     assert_response :success
