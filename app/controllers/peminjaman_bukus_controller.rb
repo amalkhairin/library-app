@@ -9,14 +9,17 @@ class PeminjamanBukusController < ApplicationController
   def index
     user = User.find(params[:user_id])
     book_list = user.peminjaman_bukus
+    book_list.each do |book|
+      transaction_status(book)
+    end
 
     render json: { status: '200', book_list: book_list.as_json }
   end
 
   def create
     @loan = PeminjamanBuku.new(set_book_params)
-    if @loan.save
-      if(check_user_and_book_status)
+    if(check_user_and_book_status)
+      if @loan.save
         update_book(Buku.find(params[:buku_id]), 'loan')
         data = {
           user: @current_user.as_json(only: %i[id name email address]),
@@ -41,7 +44,7 @@ class PeminjamanBukusController < ApplicationController
   end
 
   def set_book_params
-    defaults = { jadwal_pinjam: Time.now, jadwal_kembali: 7.days.from_now, user_id: @current_user.id }
+    defaults = { jadwal_pinjam: Time.now, jadwal_kembali: 7.days.from_now, user_id: @current_user.id, status: 'dipinjam'}
     params.permit(:user_id, :jadwal_pinjam, :jadwal_kembali, :buku_id).reverse_merge(defaults)
   end
 
@@ -62,5 +65,14 @@ class PeminjamanBukusController < ApplicationController
     total_update_book = (status == 'loan' ? book.jumlah_buku - 1 : book.jumlah_buku + 1)
     book.update_column(:jumlah_buku, total_update_book)
     total_update_book.zero? ? book.update_column(:is_available, false) : book.update_column(:is_available, true)
+  end
+
+  def transaction_status(book)
+    if (Time.now() > book.jadwal_kembali)
+      if (book.status != 'dikembalikan' || book.status == nil)
+        book.status = 'belum dikembalikan'
+        book.save
+      end
+    end
   end
 end
