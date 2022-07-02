@@ -16,12 +16,14 @@ class PeminjamanBukusController < ApplicationController
   def create
     @loan = PeminjamanBuku.new(set_book_params)
     if @loan.save
-      update_book(Buku.find(params[:buku_id]), 'loan')
-      data = {
-        user: @current_user.as_json(only: %i[id name email address]),
-        book: @loan.as_json(only: %i[buku_id jadwal_pinjam jadwal_kembali])
-      }
-      render json: { messages: 'OK', success: true, data: data }.to_json
+      if(check_user_and_book_status)
+        update_book(Buku.find(params[:buku_id]), 'loan')
+        data = {
+          user: @current_user.as_json(only: %i[id name email address]),
+          book: @loan.as_json(only: %i[buku_id jadwal_pinjam jadwal_kembali])
+        }
+        render json: { messages: 'OK', success: true, data: data }.to_json
+      end
     end
   end
 
@@ -45,8 +47,10 @@ class PeminjamanBukusController < ApplicationController
 
   def check_user_and_book_status
     @book = Buku.find_by(id: params[:buku_id])
-    if @current_user.buku_ids.length > 2 || !@book.is_available
+    if @current_user.peminjaman_bukus.length >= 2 || !@book.is_available
       render json: { status: '200', messages: "you can't loan book more than 2 or book not available" }
+    else
+      return true
     end
   end
 
