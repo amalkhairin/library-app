@@ -8,9 +8,9 @@ class PeminjamanBukusController < ApplicationController
 
   def index
     user = User.find(params[:user_id])
-    book_list = user.bukus
+    book_list = user.peminjaman_bukus
 
-    render json: { status: '200', book_list: @book_list.as_json }
+    render json: { status: '200', book_list: book_list.as_json }
   end
 
   def create
@@ -45,7 +45,7 @@ class PeminjamanBukusController < ApplicationController
 
   def check_user_and_book_status
     @book = Buku.find_by(id: params[:buku_id])
-    if @current_user.buku_ids.length > 100 || !@book.is_available
+    if @current_user.buku_ids.length > 2 || !@book.is_available
       render json: { status: '200', messages: "you can't loan book more than 2 or book not available" }
     end
   end
