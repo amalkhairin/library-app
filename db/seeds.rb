@@ -18,15 +18,17 @@ user = User.create(name: 'user', role_id: 2, username: 'user', password: 'passwo
 # Remove id if you got trouble with database errors
 category = Category.create([{id: 1, name: 'Bahasa Indonesia' }, {id:2, name: 'IPA' }, {id:3, name: 'Ekonomi' }])
 
-buku = Buku.create([{judul:"Buku Bahasa Indonesia SMP Kelas 8", deskripsi: "Buku Bahasa Indonesia SMP Kelas 8",penulis:"I Made Eko Satria Wiguna",penerbit:"Gajah Pintar",jumlah_buku:12, is_available: true, barcode:"10294",isbn: "102ko2",category_ids:[1,2]}])
+buku = Buku.create([{judul:"Buku Bahasa Indonesia SMP Kelas 8", deskripsi: "Buku Bahasa Indonesia SMP Kelas 8",penulis:"I Made Eko Satria Wiguna",penerbit:"Gajah Pintar",jumlah_buku:12, is_available: true, barcode:"10294",isbn: "102ko2",category_ids:[1]}])
+
+buku2 = Buku.create([{judul:"Buku Bahasa Indonesia SMP Kelas 9", deskripsi: "Buku Bahasa Indonesia SMP Kelas 9",penulis:"I Made Eko Satria Wiguna",penerbit:"Gajah Pintar",jumlah_buku:12, is_available: true, barcode:"10294",isbn: "102ko2",category_ids:[1]}])
+
+buku3 = Buku.create([{judul:"Buku IPA SMP Kelas 8", deskripsi: "Buku IPA SMP Kelas 8",penulis:"I Made Eko Satria Wiguna",penerbit:"Gajah Pintar",jumlah_buku:12, is_available: true, barcode:"10294",isbn: "102ko2",category_ids:[2]}])
 
 review_bukus = ReviewBuku.create([{user_id: 1, buku_id:1, rating: 4, ulasan:"Buku ini menarik sekali"}])
 
+announcement_categories = AnnouncementCategory.create(category_name: "Peminjaman")
 
-# Buku.create(judul:"Bahasa Indonesia SMP Kelas 8", deskripsi:"Buku Bahasa Indonesia Kelas 8",penerbit:"Gajah Dud
-#     uk",penulis:"I Made Eko",jumlah_buku:12,is_available: true, category_ids:[1,2])
-
-# category = Category.create([{name: "Bahasa Indonesia"}])
+announcement = Announcement.create(title:"Cara peminjaman buku", description:"berikut tata cara peminjaman buku", user_id:1)
 
 # To delete all data from the specified table
 # Remove "#" from the beginning of the string to
@@ -37,3 +39,5 @@ review_bukus = ReviewBuku.create([{user_id: 1, buku_id:1, rating: 4, ulasan:"Buk
 # Category.delete_all
 # ReviewBuku.delete_all
 # BookCategory.delete_all
+# AnnouncementCategory.delete_all
+# Announcement.delete_all
