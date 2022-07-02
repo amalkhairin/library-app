@@ -6,19 +6,30 @@ class BookReviewsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @book = bukus(:book1)
 
-    @role1 = Role.create(role: 'admin')
-    @role2 = Role.create(role: 'visitor')
+    @user = User.create(
+                name: 'Gifar', 
+                email: 'halo@example.com', 
+                username: 'gifaraja',
+                telephone: '0812345678910', 
+                password: 'admin1', 
+                role_id: roles(:admin).id
+            )
 
-    @user = User.create(name: 'Gifar', email: 'halo@example.com', username: 'gifaraja',
-                        telephone: '0812345678910', password: 'admin1', role_id: 1)
-    @user2 = User.create(name: 'Gifar Kedua', email: 'halo2@example.com', username: 'gifaraja2',
-                         telephone: '0812345678911', password: 'admin1', role_id: 2)
+    @user2 = User.create(
+                name: 'Gifar Kedua', 
+                email: 'halo2@example.com', 
+                username: 'gifaraja2',
+                telephone: '0812345678911', 
+                password: 'admin1', 
+                role_id: roles(:visitor).id
+            )
 
     @admin_token = sign_in_as(@user)
     @user_token = sign_in_as(@user2)
 
     @review1 = BookReview.create(buku_id: @book.id, user_id: @user.id, rating: 5, review: 'bukunya bagus')
-    @review2 = BookReview.create(buku_id: @book.id, user_id: @user2.id, rating: 4, review: 'bukunya bagus banget')
+    @review2 = BookReview.create(buku_id: @book.id, user_id: @user2.id, rating: 4, 
+                                 review: 'bukunya bagus banget')
   end
 
   test 'should get all review on spesific book' do
@@ -74,8 +85,9 @@ class BookReviewsControllerTest < ActionDispatch::IntegrationTest
     old_rating = @review2.rating
     old_review = @review2.review
 
-    patch "/buku/#{@book.id}/reviews/edit/#{@review2.id}", params: { rating: 5, review: 'bukunya bagus, sangat jelas' },
-                                                           headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
+    patch "/buku/#{@book.id}/reviews/edit/#{@review2.id}", 
+           params: { rating: 5, review: 'bukunya bagus, sangat jelas' },
+           headers: { HTTP_AUTHORIZATION: "JWT #{@user_token}" }
 
     assert_equal(false, old_rating != @review2.rating)
     assert_equal(false, old_review != @review2.review)
@@ -85,8 +97,9 @@ class BookReviewsControllerTest < ActionDispatch::IntegrationTest
     old_rating = @review2.rating
     old_review = @review2.review
 
-    patch "/buku/#{@book.id}/reviews/edit/#{@review2.id}", params: { rating: 5, review: 'bukunya bagus, sangat jelas' },
-                                                           headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
+    patch "/buku/#{@book.id}/reviews/edit/#{@review2.id}", 
+          params: { rating: 5, review: 'bukunya bagus, sangat jelas' },
+          headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
 
     assert_equal(true, old_rating == @review2.rating)
     assert_equal(true, old_review == @review2.review)
@@ -94,8 +107,9 @@ class BookReviewsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should delete review if admin' do
     assert_difference('@book.book_reviews.length', -1) do
-      delete "/buku/#{@book.id}/reviews/delete/#{@review2.id}", params: {},
-                                                                headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
+      delete "/buku/#{@book.id}/reviews/delete/#{@review2.id}", 
+              params: {},
+              headers: { HTTP_AUTHORIZATION: "JWT #{@admin_token}" }
     end
 
     assert_response :success

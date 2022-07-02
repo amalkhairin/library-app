@@ -32,7 +32,6 @@ class BookReviewsController < ApplicationController
   end
 
   def destroy
-    binding.break
     @book_review.destroy
 
     render json: { status: '200', message: 'review has been deleted' }

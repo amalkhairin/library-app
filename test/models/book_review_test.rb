@@ -8,6 +8,20 @@ class BookReviewTest < ActiveSupport::TestCase
   end
 
   test 'book review should be valid' do
+    role = roles(:visitor)
+
+    user = User.create(
+              name: 'Gifar Aja', 
+              email: 'halo@example.com', 
+              username: 'gifaraja', 
+              telephone: '0812345678910',
+              password: 'admin1',
+              role_id: role.id
+           )
+                   
+    @review.user_id = user.id 
+    @review.buku_id = bukus(:book1).id
+
     assert @review.valid?
   end
 

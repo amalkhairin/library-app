@@ -8,9 +8,13 @@ class AnnouncementTest < ActiveSupport::TestCase
   end
 
   test 'announcement should be valid' do
-    @role1 = Role.create(role: 'admin')
-    @user2 = User.create(name: 'Gifar Kedua', email: 'halo2@example.com', username: 'gifaraja2',
-                         telephone: '0812345678911', password: 'admin1', role_id: 1)
+    @user2 = User.create(name: 'Gifar Kedua', 
+                         email: 'halo2@example.com', 
+                         username: 'gifaraja2',
+                         telephone: '0812345678911', 
+                         password: 'admin1', 
+                         role_id: roles(:admin).id)
+                         
     @announcement.user = @user2
     assert @announcement.valid?
   end
