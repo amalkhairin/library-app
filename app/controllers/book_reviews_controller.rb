@@ -50,7 +50,7 @@ class BookReviewsController < ApplicationController
 
   def allowed_review?
     book = Buku.find(params[:buku_id])
-    render json: { status: '200', message: 'never borrowed the book' } unless @current_user.bukus.include?(book)
+    render json: { status: '200', message: 'never borrowed the book' } unless @current_user.peminjaman_bukus.laat[:buku_id] == book
     render json: { status: '200', message: 'already gave a review' } if @current_user.book_reviews.length > 1
   end
 
