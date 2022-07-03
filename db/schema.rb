@@ -84,6 +84,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_30_160354) do
     t.integer "user_id"
   end
 
+  create_table "review_bukus", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "buku_id"
+    t.integer "rating"
+    t.text "ulasan"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "role"
     t.datetime "created_at", null: false
