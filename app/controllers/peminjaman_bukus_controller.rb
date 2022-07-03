@@ -7,8 +7,9 @@ class PeminjamanBukusController < ApplicationController
   before_action :require_admin, only: %i[destroy]
 
   def index
+    binding.break
     user = User.find(params[:user_id])
-    book_list = user.bukus
+    book_list = user.peminjaman_bukus
 
     render json: { status: '200', book_list: @book_list.as_json }
   end
@@ -17,6 +18,7 @@ class PeminjamanBukusController < ApplicationController
     @loan = PeminjamanBuku.new(set_book_params)
     if @loan.save
       update_book(Buku.find(params[:buku_id]), 'loan')
+
       data = {
         user: @current_user.as_json(only: %i[id name email address]),
         book: @loan.as_json(only: %i[buku_id jadwal_pinjam jadwal_kembali])
