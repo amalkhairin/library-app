@@ -49,9 +49,13 @@ class BookReviewsController < ApplicationController
   end
 
   def allowed_review?
-    book = Buku.find(params[:buku_id])
-    render json: { status: '200', message: 'never borrowed the book' } unless @current_user.peminjaman_bukus.laat[:buku_id] == book
-    render json: { status: '200', message: 'already gave a review' } if @current_user.book_reviews.length > 1
+    unless @current_user.peminjaman_bukus.find_by(buku_id: params[:buku_id])
+      render json: { status: '200', message: 'never borrowed the book' } 
+    else 
+      if(@current_user.book_reviews.length > 1 || @current_user.book_reviews.find_by(buku_id: params[:buku_id]))
+        render json: { status: '200', message: 'already gave a review' } 
+      end
+    end
   end
 
   def require_same_user

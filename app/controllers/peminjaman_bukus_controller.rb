@@ -7,7 +7,7 @@ class PeminjamanBukusController < ApplicationController
   before_action :require_admin, only: %i[destroy]
 
   def index
-    binding.break
+    # binding.break
     user = User.find(params[:user_id])
     book_list = user.peminjaman_bukus
 
