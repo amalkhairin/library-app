@@ -7,8 +7,10 @@ class PeminjamanBukusController < ApplicationController
   before_action :require_admin, only: %i[destroy]
 
   def index
+    binding.break
     user = User.find(params[:user_id])
     book_list = user.peminjaman_bukus
+
     book_list.each do |book|
       transaction_status(book)
     end
@@ -18,15 +20,14 @@ class PeminjamanBukusController < ApplicationController
 
   def create
     @loan = PeminjamanBuku.new(set_book_params)
-    if(check_user_and_book_status)
-      if @loan.save
-        update_book(Buku.find(params[:buku_id]), 'loan')
-        data = {
-          user: @current_user.as_json(only: %i[id name email address]),
-          book: @loan.as_json(only: %i[buku_id jadwal_pinjam jadwal_kembali])
-        }
-        render json: { messages: 'OK', success: true, data: data }.to_json
-      end
+
+    if @loan.save
+      update_book(Buku.find(params[:buku_id]), 'loan')
+      data = {
+        user: @current_user.as_json(only: %i[id name email address]),
+        book: @loan.as_json(only: %i[buku_id jadwal_pinjam jadwal_kembali])
+      }
+      render json: { messages: 'OK', success: true, data: data }.to_json
     end
   end
 
