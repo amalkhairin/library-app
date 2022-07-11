@@ -49,6 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_30_160354) do
   end
 
   create_table "bukus", force: :cascade do |t|
+    t.integer "id_kategori"
     t.string "barcode"
     t.string "isbn"
     t.string "judul"
